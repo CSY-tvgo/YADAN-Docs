@@ -61,3 +61,4 @@ html_static_path = ['_static']
 # -- The following options are added manually --------------------------------
 
 source_suffix = [".rst", ".md"]
+master_doc = 'index.md'
