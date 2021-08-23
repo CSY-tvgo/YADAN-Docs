@@ -13,5 +13,5 @@ Contents:
 
 ================================================
   
-PS: 这个文档使用 Read the Docs 构建，文档编辑方法可参考[此处](https://docs.readthedocs.io/en/latest/intro/getting-started-with-sphinx.html)。
+PS: 这个文档使用 Read the Docs 构建，文档编辑方法可参考 `此处 <https://docs.readthedocs.io/en/latest/intro/getting-started-with-sphinx.html>`_。
 
