@@ -6,8 +6,13 @@ YADAN Board 的文档仍在更新中……  // TODO:
 Contents:
 
 .. toctree::
+   :numbered:
    :maxdepth: 2
+   
+   source\PULPino on YADAN Board\index.md
 
+   source\YADAN Core on YADAN Board
+   
    content_test.md
 
 
