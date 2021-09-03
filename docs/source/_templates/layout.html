@@ -2,6 +2,22 @@
 {% block footer %} {{ super() }}
 
 <style>
+    /* 未访问的链接 */
+    a:link {
+        color: rgb(78, 110, 133);
+        transition-duration: 0.5s;
+    }
+
+    /* 已访问的链接 */
+    a:visited {
+        color: rgb(78, 110, 133);
+    }
+
+    /* 鼠标悬停链接 */
+    a:hover {
+        color: rgb(106, 131, 149);
+    }
+
     /* Sidebar header (and topbar for mobile) */
     .wy-side-nav-search,
     .wy-nav-top {
@@ -27,21 +43,6 @@
 
     .wy-menu-vertical a:active {
         background-color: rgb(76, 110, 133);
-    }
-
-    /* 未访问的链接 */
-    a:link {
-        color: rgb(78, 110, 133);
-    }
-
-    /* 已访问的链接 */
-    a:visited {
-        color: rgb(78, 110, 133);
-    }
-
-    /* 鼠标悬停链接 */
-    a:hover {
-        color: rgb(106, 131, 149);
     }
 </style>
 
