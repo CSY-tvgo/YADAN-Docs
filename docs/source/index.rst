@@ -11,8 +11,8 @@ Contents:
    
    source\PULPino on YADAN Board\index.md
 
-   source\YADAN Core on YADAN Board
-   
+   source\YADAN Core on YADAN Board\index.md
+
    content_test.md
 
 
