@@ -9,9 +9,9 @@ Contents:
    :numbered:
    :maxdepth: 2
    
-   source\PULPino on YADAN Board\index.md
+   PULPino on YADAN Board\index.md
 
-   source\YADAN Core on YADAN Board\index.md
+   YADAN Core on YADAN Board\index.md
 
    content_test.md
 
