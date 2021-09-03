@@ -1,7 +1,7 @@
-Welcome to YADAN's documentation!  
+Welcome to YADAN Board's documentation!  
 ================================================
 
-YADAN 的文档仍在更新中……  // TODO:  
+YADAN Board 的文档仍在更新中……  // TODO:  
 
 Contents:
 
