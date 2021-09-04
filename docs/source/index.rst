@@ -10,14 +10,14 @@ Contents:
    :maxdepth: 2
    :caption: PULPino on YADAN Board
 
-   PULPino\index.md
+   PULPino/index.md
 
 .. toctree::
    :numbered:
    :maxdepth: 2
    :caption: YADAN Core on YADAN Board
    
-   YadanCore\index.md
+   YadanCore/index.md
 
 
 .. toctree::
