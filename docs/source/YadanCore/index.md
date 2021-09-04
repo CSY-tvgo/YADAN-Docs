@@ -1,3 +1,3 @@
-# YADAN Code on YADAN Board  
+# YADAN Core on YADAN Board  
 
 Coming soon.

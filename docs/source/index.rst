@@ -9,7 +9,7 @@ Contents:
    :numbered:
    :maxdepth: 2
    :caption: PULPino on YADAN Board
-
+   
    PULPino/index.md
 
 .. toctree::
@@ -21,9 +21,8 @@ Contents:
 
 
 .. toctree::
-   :numbered:
    :maxdepth: 2
    :caption: Others
-
+   
    content_test.md
 
