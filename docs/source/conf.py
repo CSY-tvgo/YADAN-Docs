@@ -62,6 +62,4 @@ html_static_path = ['_static']
 
 source_suffix = [".rst", ".md"]
 master_doc = 'index'
-
-# custom.css is inside one of the html_static_path folders (e.g. _static)
 html_css_files = ["custom.css"]
