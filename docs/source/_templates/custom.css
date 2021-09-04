@@ -1,0 +1,73 @@
+/* 未访问的链接 */
+
+a:link {
+    color: rgb(2, 86, 156);
+    transition-duration: 0.25s;
+}
+
+/* 已访问的链接 */
+
+a:visited {
+    color: rgb(2, 86, 156);
+}
+
+/* 鼠标悬停链接 */
+
+a:hover {
+    color: rgb(137, 172, 210);
+}
+
+/* Sidebar header (and topbar for mobile) */
+
+.wy-side-nav-search, .wy-nav-top {
+    background: rgb(245, 223, 77);
+}
+
+.wy-nav-top a {
+    color: rgb(52, 52, 52);
+}
+
+/* Sidebar */
+
+.wy-nav-side {
+    color: white;
+    background: rgb(149, 149, 151);
+}
+
+.wy-side-nav-search>a {
+    color: rgb(52, 52, 52);
+}
+
+.wy-side-nav-search>div.version {
+    color: rgb(149, 149, 151);
+}
+
+.wy-menu-vertical a {
+    color: white;
+}
+
+.wy-menu-vertical a:active {
+    background-color: rgb(76, 110, 133);
+}
+
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    color: #ffffff;
+}
+
+/* transition-duration */
+
+.wy-side-nav-search, .wy-nav-top {
+    transition-duration: 0.25s;
+}
+
+.wy-nav-side {
+    transition-duration: 0.25s;
+}
+
+.wy-nav-content {
+    transition-duration: 0.25s;
+}
+
+.rst-versions {
+    transition-duration: 0.25s;
+}
