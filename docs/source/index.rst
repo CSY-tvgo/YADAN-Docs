@@ -4,7 +4,6 @@ Welcome to YADAN Board's documentation!
 
 YADAN Board 的文档仍在更新中……  // TODO:  
 
-
 .. toctree::
    :numbered:
    :maxdepth: 1
