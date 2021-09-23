@@ -61,5 +61,5 @@ html_static_path = ['_static']
 # -- The following options are added manually --------------------------------
 
 source_suffix = [".rst", ".md"]
-master_doc = 'YADAN_Board/index'
+master_doc = 'index'
 html_css_files = ["custom.css"]
