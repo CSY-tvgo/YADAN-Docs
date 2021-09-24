@@ -2,9 +2,9 @@
 Welcome to YADAN Board's documentation!  
 =========================================
 
-YADAN Board 的文档正在更新中，部分内容的顺序或排版可能暂时存在问题，**推荐在几天后阅读正式版本**。  
+YADAN Board 的文档正在更新中，部分内容暂时可能不完整，顺序或排版可能也存在问题，**推荐在几天后阅读正式版本**。  
 
-此文档正在更新，当前版本的更新时间为：2021年9月24日15:18:57
+此文档正在更新，当前版本的更新时间为：2021年9月24日 UTC+8
 
 .. toctree::
    :numbered:
@@ -17,3 +17,4 @@ YADAN Board 的文档正在更新中，部分内容的顺序或排版可能暂�
    YADAN_Board/chap4.md
    YADAN_Board/chap5.md
    YADAN_Board/chap6.md
+  
