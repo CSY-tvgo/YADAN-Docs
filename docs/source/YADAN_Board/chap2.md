@@ -26,7 +26,6 @@ YADAN SoC 是 VeriMake 设计的一款 SoC，它搭载一颗 RISC-V 指令集的
 图 2.2.2 本实验采用的 Zero-riscy 内核的 PULPino SoC 的结构图</center>**
   
 我们用于实验的 SoC 默认拥有如下的资源：  
-  
 &nbsp;&nbsp;(1) Instruction RAM 64KB  
 &nbsp;&nbsp;(2) Boot ROM 32KB  
 &nbsp;&nbsp;(3) Data RAM 32KB  
@@ -76,7 +75,7 @@ IVT 中的每个条目都是一个地址，该地址对应的存储空间存储�
 ### 外设相关的寄存器介绍  
 从前文的图 2.2.2 中可以看到，在这个 SoC 中，外设通过 APB 总线与 CPU 核相连，外设的地址范围是 0x1A10_0000 ~ 0x1A11_1000，每个外设被分配了 4KB 的地址空间以供内核进行访问。在后文，本文将分别对每个外设进行介绍。  
   
-### UART 串口  
+#### UART 串口  
 该系统中使用的 UART 与 16750（串口设计的一个标准）兼容。它具有所有典型的 UART 信号、以及 16750 定义的一些附加信号，详见表 2.2.2。  
   
 **<center>表 2.2.2 UART 串口端口描述**  
@@ -89,6 +88,46 @@ IVT 中的每个条目都是一个地址，该地址对应的存储空间存储�
 | uart_dtr | output    | Data Terminal Ready |
 | uart_dsr | input     | Data Set Ready      |
 </center>
+  
+SoC 默认引出了 uart_tx 和 uart_rx 两个端口，如果需要，也可以修改 SoC 设计，将其它需要的端口引出到硬件引脚上。  
+  
+UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，每个寄存器的大小为 32 位，但是在实际使用时每个寄存器只使用了低8位。表 2.2.3 是 UART 串口的寄存器地址表。  
+  
+**<center>表 2.2.3 UART 串口的寄存器地址表**  
+| DLAB </br> LCR(7) | Address     | R/W | Register Mnemonic | Function                                              |
+| ----------------- | ----------- | --- | ----------------- | ----------------------------------------------------- |
+| 0                 | 0x1A10_0000 | R   | RBR               | Receiver FIFO </br> (Receiver Buffer Register)        |
+| 0                 | 0x1A10_0000 | W   | THR               | Transmitter FIFO </br> (Transmitter Holding Register) |
+| 0                 | 0x1A10_0004 | R/W | IER               | Interrupt Enable Register                             |
+| X                 | 0x1A10_0008 | R   | IIR               | Interrupt Identification Register                     |
+| X                 | 0x1A10_0008 | W   | FCR               | FIFO Control Register                                 |
+| X                 | 0x1A10_000C | R/W | LCR               | Line Control Register                                 |
+| X                 | 0x1A10_0010 | R/W | MCR               | Modem Control Register                                |
+| X                 | 0x1A10_0014 | R   | LSR               | Line Status Register                                  |
+| X                 | 0x1A10_0018 | R   | MSR               | Modem Status Register                                 |
+| X                 | 0x1A10_001C | R/W | SCR               | Scratch Register </br> (No UART Control or Status)    |
+| 1                 | 0x1A10_0000 | R/W | DLL               | Divisor Latch LSB </br> (Baud Rate Generator)         |
+| 1                 | 0x1A10_0004 | R/W | DLM               | Divisor Latch MSB </br> (Baud Rate Generator)         |
+</center>
+  
+由表中可以看出，有的寄存器地址是相同的，比如 RBR 和 THR 的地址都是 0x1A10_0000，这是因为地址可被复用。RBR 和 THR 分别是存储接收和发送的 8 位数据的 FIFO (First-In First-Out,先进先出)存储器，在 CPU 对这个地址读的时候，它作为 RBR 来使用，在 CPU 对这个地址写的时候，它作为 THR 来使用。此外，DLL 寄存器也同样位于 0x1A10_0000，当 LCR 寄存器的第 7 位为 1 时，这个地址作为 DLL 来使用。我们可以发现，虽然 UART 串口寄存器有 12 个，但是只占用了 8 个 32 位寄存器的地址，下边将介绍各个控制寄存器各位的作用。  
+  
+##### Interrupt Enable Register (IER)  
+这个寄存器被用来控制 UART 串口里各种中断的允许 / 禁用。表 2.4 列出了 IER 寄存器各位的功能。*（注：“允许 / 禁用”对应的英文为“enable / disable”，有些译者可能也会将“enable”翻译为 “启用”或者“使能”）*  
+  
+**<center>表 2.2.4 IER 寄存器各位的功能**  
+| Bit | R/W | Bit Description                                                                          |
+| --- | --- | ---------------------------------------------------------------------------------------- |
+| 0   | R/W | Enable Received Data Available Interrupt </br> 0 = disabled </br> 1 = enabled            |
+| 1   | R/W | Enable Transmitter Holding Register Empty Interrupt </br> 0 = disabled </br> 1 = enabled |
+| 2   | R/W | Enable Receiver Line Status Interrupt </br> 0 = disabled </br> 1 = enabled               |
+| 3   | R/W | Enable Modem Status Interrupt </br> 0 = disabled </br> 1 = enabled                       |
+| 7-4 | R   | 0                                                                                        |
+</center>  
+  
+##### Interrupt Identification Register (IIR)  
+
+
 
 // TODO:  
   

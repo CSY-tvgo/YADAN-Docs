@@ -12,7 +12,6 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
 ## 开发板主要资源  
 
 YADAN Board 主要拥有以下资源：  
-  
 &nbsp;&nbsp;(1) 主控采用Anlogic高性能FPGA芯片EG4S20NG88  
 &nbsp;&nbsp;&nbsp;&nbsp; ♢ 等效 23520 个四输入查找表  
 &nbsp;&nbsp;&nbsp;&nbsp; ♢ 最大 156.8K 分布式 RAM  
