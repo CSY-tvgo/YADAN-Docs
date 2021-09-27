@@ -129,14 +129,119 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 ##### Interrupt Identification Register (IIR)  
 这个寄存器被用来读取当前发生中断的原因，它是一个只读寄存器。表 2.2.5 列出了 IIR 寄存器各位的功能。  
 **<center>表 2.2.5 IIR 寄存器各位的功能**  
-| Bit | R/W | Bit Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Interrupt Cleared when                                                                                                                                                                                                                         |
-| --- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | R   | Interrupt Pending </br> 0 = Interrupt Pending </br> 1 = No Interrupt Pending                                                                                                                                                                                                                                                                                                                                                                                                                                              | No Interrupt Pending                                                                                                                                                                                                                           |
-| 3-1 | R   | 3 = Receiver Line Status Interrupt </br> Parity, Data overrun, or Framing error, or Break Interrupt  </br>2 = Receiver Data available </br> Receiver FIFO trigger level reached </br>6 = Timeout Indication </br> After a receiver Data Available interrupt, when no Characters read from the receive FIFO for the time of four characters transfer time, and FIFO is not empty </br>1 = Transmit Hold Register Empty  </br>0 = Modem Status Interrupt </br>CTS, SDR RI or DCD change state </br>4, 5, 7 – will not occur | 3 - Reading LSR </br></br>2 - FIFO continents drops below trigger level </br></br>6 - Reading the Receiver Buffer Register </br></br>1 - Writing to the Transmitter Holding Register (the Write FIFO) or reading IIR </br></br>0 - Reading MSR |
-| 7-4 | R   | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | ---                                                                                                                                                                                                                                            |
+| Bit | R/W | Bit Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Interrupt Cleared when                                                                                                                                                                                                                         |
+| --- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | R   | Interrupt Pending </br> 0 = Interrupt Pending </br> 1 = No Interrupt Pending                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | No Interrupt Pending                                                                                                                                                                                                                           |
+| 3-1 | R   | 3 = Receiver Line Status Interrupt </br>&nbsp;&nbsp;Parity, Data overrun, or Framing error, or Break Interrupt  </br>2 = Receiver Data available </br>&nbsp;&nbsp;Receiver FIFO trigger level reached </br>6 = Timeout Indication </br>&nbsp;&nbsp;After a receiver Data Available interrupt, when no Characters read from the receive FIFO for the time of four characters transfer time, and FIFO is not empty </br>1 = Transmit Hold Register Empty  </br>0 = Modem Status Interrupt </br>&nbsp;&nbsp;CTS, SDR RI or DCD change state </br>4, 5, 7 – will not occur | 3 - Reading LSR </br></br>2 - FIFO continents drops below trigger level </br></br>6 - Reading the Receiver Buffer Register </br></br>1 - Writing to the Transmitter Holding Register (the Write FIFO) or reading IIR </br></br>0 - Reading MSR |
+| 7-4 | R   | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ---                                                                                                                                                                                                                                            |
+</center>  
+  
+##### FIFO Control Register (FCR)  
+这个寄存器被用来控制 FIFO 的工作状态。表 2.2.6 列出了 FCR 寄存器各位的功能。  
+  
+**<center>表 2.2.6 FCR 寄存器各位的功能**  
+| Bit | R / W | Bit Description                                                                                        |
+| --- | ----- | ------------------------------------------------------------------------------------------------------ |
+| 0   | W     | Enable FIFO’s </br> Don’t care (FIFO’s always enabled)                                                 |
+| 1   | W     | Receive FIFO Reset </br> 0 = nothing </br> 1 = reset FIFO                                              |
+| 2   | W     | Transmit FIFO Reset </br> 0 = nothing </br> 1 = reset FIFO                                             |
+| 3   | W     | DMA Mode Select </br> 0 = Mode 0 </br> 1 = Mode 1                                                      |
+| 5-4 | W     | Reserved (ignored)                                                                                     |
+| 7-6 | W     | Receive FIFO trigger level </br> 00 = 1 byte </br> 01 = 4 bytes </br> 10 = 8 bytes </br> 11 = 14 bytes |
+</center>  
+  
+其中，第 0 位不用设置，FIFO 一直是启用状态。第 3 位被预留用于控制 DMA 传输模式，但是本 SoC 未设计 DMA 接口，所以这位可被忽略不使用。  
+  
+##### Line Control Register (LCR)  
+这个寄存器被用来设置 UART 串口传输模式，例如是否有停止位、是否奇偶检验位等。表 2.2.7 列出了 LCR 寄存器各位的功能。
+  
+**<center>表 2.2.7 LCR 寄存器各位的功能**  
+| Bit | R / W | Bit Description                                                                                                                                                 |
+| --- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1-0 | R/W   | Word Length Select </br> 00 = 5 bits </br> 01 = 6 bits </br> 10 = 7 bits </br> 11 = 8 bits                                                                      |
+| 2   | R/W   | Number of Stop bits </br> 0 = 1 stop bit </br> 1 = 2 stop bits (1.5 stop bits with 5 data bits) </br> Note: the receiver checks for the 1st stop bit only       |
+| 3   | R/W   | Parity Enable </br> 0 = no parity </br> 1 = enable parity                                                                                                       |
+| 4   | R/W   | Even Parity (used only when parity is enabled) </br> 0 = odd parity </br> 1 = even parity                                                                       |
+| 5   | R/W   | Stick Parity </br> Ignored                                                                                                                                      |
+| 6   | R/W   | Set Brake </br> 0 = normal operation </br> 1 = The serial output is forced to logic 0 (Spacing State, which </br> will cause a Break interrupt in the receiver) |
+| 7   | R/W   | Divisor Latch (baud rate generator) Access bit </br> This bit must be set to 1 to set the baud rate, it Must be set to 0 to </br> access the FIFO’s             |
+</center>  
+  
+##### Modem Control Register (MCR)  
+这个寄存器被用来设置 Modem。表 2.2.8 列出了 MCR 寄存器各位的功能。  
+**<center>表 2.2.8 MCR寄存器各位的功能**  
+| Bit | R / W | Bit Description                           |
+| --- | ----- | ----------------------------------------- |
+| 0   | R/W   | DTRn </br> bit is inverted to drive pin   |
+| 1   | R/W   | RTSn </br> bit is inverted to drive pin   |
+| 2   | R/W   | Out 1n </br> bit is inverted to drive pin |
+| 3   | R/W   | Out 2n </br> bit is inverted to drive pin |
+| 4   | R/W   | Loop Back mode                            |
+| 7-5 | R     | 0 (ignored)                               |
 </center>  
 
+##### Line Status Register (LSR)  
+这个寄存器被用来查询 UART 串口的相关状态，是只读寄存器。表 2.2.9 列出了 LSR 寄存器各位的功能。
+**<center>表 2.2.9 LSR寄存器各位的功能**  
+| Bit | R / W | Bit Description                                                                                                                                                                                                         |
+| --- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | R     | Data Ready </br> 0 = Receive FIFO is empty </br> 1 = at least one character is in the receive FIFO                                                                                                                      |
+| 1   | R     | Overrun Error </br> 0 = no error </br> 1 = Receive FIFO was full, and an additional character was </br> received, but was lost                                                                                          |
+| 2   | R     | Parity Error </br> 0 = no error </br> 1 = top character in FIFO was received with a parity error. </br> If enabled, generates a Receiver Line Status Interrupt                                                          |
+| 3   | R     | Framing Error </br> 0 = no error </br> 1 = top character in FIFO was received without a valid stop bit. </br> If enabled, generates a Receiver Line Status Interrupt                                                    |
+| 4   | R     | Break Interrupt </br> 0 = No Interrupt </br> 1 = a break condition has been reached (the receive serial input </br> has a logic 0 for a character period). If enabled, generates a </br> Receiver Line Status Interrupt |
+| 5   | R     | Transmitter Holding Register </br> 0 = Transmitter FIFO is not Empty </br> 1 = Transmitter FIFO is Empty If enabled, generates a </br> Transmitter Holding Empty Interrupt                                              |
+| 6   | R     | Transmitter Empty </br> 0 = not 1 </br> 1 = Transmitter FIFO and Transmitter Shift Register is Empty.                                                                                                                   |
+| 7   | R     | Error in receive FIFO </br> 0 = not 1 </br> 1 = at least one error (parity, framing or break) in receive FIFO. </br> This bit is cleared upon reading this register.                                                    |
+</center>  
 
+##### Modem Status Register (MSR)  
+这个寄存器被用来查询 Modem 的状态。表 2.2.10 列出了 MSR 寄存器的各位的功能。  
+**<center>表 2.2.10 MSR寄存器各位的功能**  
+| Bit | R / W | Bit Description                                                                                                                          |
+| --- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | R     | Delta Clear to Send </br> 0 = no change in CTSn input line </br> 1 = CTSn has changed state since last register read                     |
+| 1   | R     | Delta Data Set Ready </br> 0 = no change in DSRn input line </br> 1 = DSRn has changed state since last register read                    |
+| 2   | R     | Trailing Edge Ring Indicator </br> 0 = no rising edge in RIn input line </br> 1 = rising edge in RIn input line since last register read |
+| 3   | R     | Delta Data Carrier Detect </br> 0 = no change in DCDn input line </br> 1 = DCDn has changed state since last register read               |
+| 4   | R     | Clear to Send </br> Complement of the CTSn input </br> In loop back, this bit is equivalent to RTS in the MCR (bit 1)                    |
+| 5   | R     | Data Set Ready </br> Complement of the DSRn input </br> In loop back, this bit is equivalent to DTR in the MCR (bit 0)                   |
+| 6   | R     | Ring Indicator </br> Complement of the RIn input </br> In loop back, this bit is equivalent to Out 1 in the MCR (bit 2)                  |
+| 7   | R     | Data Carrier Detect </br> Complement of the DCDn input </br> In loop back, this bit is equivalent to Out 2 in the MCR (bit 3)            |
+</center>  
+
+##### Scratch Register (SCR)
+这个寄存器拥有可读可写的 1 字节，它没有活动的 UART 功能。软件可将其用作临时存储，或者完全忽略它。  
+  
+  
+##### Baud Rate Generator (DLL, DLM)
+这两个寄存器被用来存储生成波特率所需要的分频值，分频值是个 16 位的二进制整数原码，DLL 存放其低 8 位，DLM 存放其高 8 位。计分频值为 $N$，波特率会被设置为  
+$$Baud=\frac{f_{输入时钟}}{16(N+1)}$$  
+例如：串口输入时钟为 24 MHz，假如需要设置波特率为 115200，那么需要设置分频值 $N=((24*10^6/115200)/16)-1=12$，则对 DLL 写入 12 (二进制为 00001100)，对 DLM 写入 0 即可（实际波特率约为 115384.6，与 115200 存在允许范围内的误差）。要注意的是，在需要设置波特率时，需要先将 LCR 寄存器的第 7 位设置为 1，才能再对 DLL 与 DLM 进行写入来设置波特率。  
+
+#### GPIO GPIO 通用输入输出
+GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个，开发者若有需求也可以通过修改 SoC 顶层设计来增加或者减少 GPIO 的数量。GPIO 寄存器各位的功能如表 2.2.11  
+**<center>表 2.2.11 GPIO 寄存器各位的功能**  
+| Address                        | R/W | Register Mnemonic | Function                    |
+| ------------------------------ | --- | ----------------- | --------------------------- |
+| 0x1A10_1000                    | R/W | PADDIR            | Pad Direction               |
+| 0x1A10_1004                    | R   | PADIN             | Input Values                |
+| 0x1A10_1008                    | R/W | PADOUT            | Output Values               |
+| 0x1A10_100C                    | R/W | INTEN             | Interrupt Enable            |
+| 0x1A10_1010                    | R/W | INTTYPE0          | Interrupt Type 0            |
+| 0x1A10_1014                    | R/W | INTTYPE1          | Interrupt Type 1            |
+| 0x1A10_1018                    | R/W | INTSTATUS         | Interrupt Status            |
+| 0x1A10_1020 ~ </br>0x1A10_103C | R/W | PADCFG0-7         | Pad Configuration Registers |
+</center>  
+  
+##### PADDIR 寄存器  
+
+
+**<center>表 2.2.x**  
+| Bit | R / W | Bit Description |
+| --- | ----- | --------------- |
+|     |       |                 |
+</center>  
 
 // TODO:  
   
