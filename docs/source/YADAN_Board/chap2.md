@@ -113,7 +113,8 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 由表中可以看出，有的寄存器地址是相同的，比如 RBR 和 THR 的地址都是 0x1A10_0000，这是因为地址可被复用。RBR 和 THR 分别是存储接收和发送的 8 位数据的 FIFO (First-In First-Out,先进先出)存储器，在 CPU 对这个地址读的时候，它作为 RBR 来使用，在 CPU 对这个地址写的时候，它作为 THR 来使用。此外，DLL 寄存器也同样位于 0x1A10_0000，当 LCR 寄存器的第 7 位为 1 时，这个地址作为 DLL 来使用。我们可以发现，虽然 UART 串口寄存器有 12 个，但是只占用了 8 个 32 位寄存器的地址，下边将介绍各个控制寄存器各位的作用。  
   
 ##### Interrupt Enable Register (IER)  
-这个寄存器被用来控制 UART 串口里各种中断的允许 / 禁用。表 2.4 列出了 IER 寄存器各位的功能。*（注：“允许 / 禁用”对应的英文为“enable / disable”，有些译者可能也会将“enable”翻译为 “启用”或者“使能”）*  
+这个寄存器被用来控制 UART 串口里各种中断的允许 / 禁用。表 2.4 列出了 IER 寄存器各位的功能。  
+*（注：“允许 / 禁用” 对应的英文为 “enable / disable”，有些译者可能也会将 “enable” 翻译为 “启用” 或者 “使能”，但 “使能” 是不合中文语法的）*  
   
 **<center>表 2.2.4 IER 寄存器各位的功能**  
 | Bit | R/W | Bit Description                                                                          |
@@ -126,6 +127,14 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 </center>  
   
 ##### Interrupt Identification Register (IIR)  
+这个寄存器被用来读取当前发生中断的原因，它是一个只读寄存器。表 2.2.5 列出了 IIR 寄存器各位的功能。  
+**<center>表 2.2.5 IIR 寄存器各位的功能**  
+| Bit | R/W | Bit Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Interrupt Cleared when                                                                                                                                                                                                                         |
+| --- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | R   | Interrupt Pending </br> 0 = Interrupt Pending </br> 1 = No Interrupt Pending                                                                                                                                                                                                                                                                                                                                                                                                                                              | No Interrupt Pending                                                                                                                                                                                                                           |
+| 3-1 | R   | 3 = Receiver Line Status Interrupt </br> Parity, Data overrun, or Framing error, or Break Interrupt  </br>2 = Receiver Data available </br> Receiver FIFO trigger level reached </br>6 = Timeout Indication </br> After a receiver Data Available interrupt, when no Characters read from the receive FIFO for the time of four characters transfer time, and FIFO is not empty </br>1 = Transmit Hold Register Empty  </br>0 = Modem Status Interrupt </br>CTS, SDR RI or DCD change state </br>4, 5, 7 – will not occur | 3 - Reading LSR </br></br>2 - FIFO continents drops below trigger level </br></br>6 - Reading the Receiver Buffer Register </br></br>1 - Writing to the Transmitter Holding Register (the Write FIFO) or reading IIR </br></br>0 - Reading MSR |
+| 7-4 | R   | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | ---                                                                                                                                                                                                                                            |
+</center>  
 
 
 
