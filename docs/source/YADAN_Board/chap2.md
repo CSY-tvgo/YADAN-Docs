@@ -94,20 +94,20 @@ SoC 默认引出了 uart_tx 和 uart_rx 两个端口，如果需要，也可以�
 UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，每个寄存器的大小为 32 位，但是在实际使用时每个寄存器只使用了低8位。表 2.2.3 是 UART 串口的寄存器地址表。  
   
 **<center>表 2.2.3 UART 串口的寄存器地址表**  
-| DLAB </br> LCR(7) | Address     | R/W | Register Mnemonic | Function                                              |
-| ----------------- | ----------- | --- | ----------------- | ----------------------------------------------------- |
-| 0                 | 0x1A10_0000 | R   | RBR               | Receiver FIFO </br> (Receiver Buffer Register)        |
-| 0                 | 0x1A10_0000 | W   | THR               | Transmitter FIFO </br> (Transmitter Holding Register) |
-| 0                 | 0x1A10_0004 | R/W | IER               | Interrupt Enable Register                             |
-| X                 | 0x1A10_0008 | R   | IIR               | Interrupt Identification Register                     |
-| X                 | 0x1A10_0008 | W   | FCR               | FIFO Control Register                                 |
-| X                 | 0x1A10_000C | R/W | LCR               | Line Control Register                                 |
-| X                 | 0x1A10_0010 | R/W | MCR               | Modem Control Register                                |
-| X                 | 0x1A10_0014 | R   | LSR               | Line Status Register                                  |
-| X                 | 0x1A10_0018 | R   | MSR               | Modem Status Register                                 |
-| X                 | 0x1A10_001C | R/W | SCR               | Scratch Register </br> (No UART Control or Status)    |
-| 1                 | 0x1A10_0000 | R/W | DLL               | Divisor Latch LSB </br> (Baud Rate Generator)         |
-| 1                 | 0x1A10_0004 | R/W | DLM               | Divisor Latch MSB </br> (Baud Rate Generator)         |
+| DLAB </br> LCR(7) | Address     | R / W | Register Mnemonic | Function                                              |
+| ----------------- | ----------- | ----- | ----------------- | ----------------------------------------------------- |
+| 0                 | 0x1A10_0000 | R     | RBR               | Receiver FIFO </br> (Receiver Buffer Register)        |
+| 0                 | 0x1A10_0000 | W     | THR               | Transmitter FIFO </br> (Transmitter Holding Register) |
+| 0                 | 0x1A10_0004 | R / W | IER               | Interrupt Enable Register                             |
+| X                 | 0x1A10_0008 | R     | IIR               | Interrupt Identification Register                     |
+| X                 | 0x1A10_0008 | W     | FCR               | FIFO Control Register                                 |
+| X                 | 0x1A10_000C | R / W | LCR               | Line Control Register                                 |
+| X                 | 0x1A10_0010 | R / W | MCR               | Modem Control Register                                |
+| X                 | 0x1A10_0014 | R     | LSR               | Line Status Register                                  |
+| X                 | 0x1A10_0018 | R     | MSR               | Modem Status Register                                 |
+| X                 | 0x1A10_001C | R / W | SCR               | Scratch Register </br> (No UART Control or Status)    |
+| 1                 | 0x1A10_0000 | R / W | DLL               | Divisor Latch LSB </br> (Baud Rate Generator)         |
+| 1                 | 0x1A10_0004 | R / W | DLM               | Divisor Latch MSB </br> (Baud Rate Generator)         |
 </center>
   
 由表中可以看出，有的寄存器地址是相同的，比如 RBR 和 THR 的地址都是 0x1A10_0000，这是因为地址可被复用。RBR 和 THR 分别是存储接收和发送的 8 位数据的 FIFO (First-In First-Out,先进先出)存储器，在 CPU 对这个地址读的时候，它作为 RBR 来使用，在 CPU 对这个地址写的时候，它作为 THR 来使用。此外，DLL 寄存器也同样位于 0x1A10_0000，当 LCR 寄存器的第 7 位为 1 时，这个地址作为 DLL 来使用。我们可以发现，虽然 UART 串口寄存器有 12 个，但是只占用了 8 个 32 位寄存器的地址，下边将介绍各个控制寄存器各位的作用。  
@@ -117,23 +117,23 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 *（注：“允许 / 禁用” 对应的英文为 “enable / disable”，有些译者可能也会将 “enable” 翻译为 “启用” 或者 “使能”，但 “使能” 是不合中文语法的）*  
   
 **<center>表 2.2.4 IER 寄存器各位的功能**  
-| Bit | R/W | Bit Description                                                                          |
-| --- | --- | ---------------------------------------------------------------------------------------- |
-| 0   | R/W | Enable Received Data Available Interrupt </br> 0 = disabled </br> 1 = enabled            |
-| 1   | R/W | Enable Transmitter Holding Register Empty Interrupt </br> 0 = disabled </br> 1 = enabled |
-| 2   | R/W | Enable Receiver Line Status Interrupt </br> 0 = disabled </br> 1 = enabled               |
-| 3   | R/W | Enable Modem Status Interrupt </br> 0 = disabled </br> 1 = enabled                       |
-| 7-4 | R   | 0                                                                                        |
+| Bit | R / W | Bit Description                                                                          |
+| --- | ----- | ---------------------------------------------------------------------------------------- |
+| 0   | R / W | Enable Received Data Available Interrupt </br> 0 = disabled </br> 1 = enabled            |
+| 1   | R / W | Enable Transmitter Holding Register Empty Interrupt </br> 0 = disabled </br> 1 = enabled |
+| 2   | R / W | Enable Receiver Line Status Interrupt </br> 0 = disabled </br> 1 = enabled               |
+| 3   | R / W | Enable Modem Status Interrupt </br> 0 = disabled </br> 1 = enabled                       |
+| 7-4 | R     | 0                                                                                        |
 </center>  
   
 ##### Interrupt Identification Register (IIR)  
 这个寄存器被用来读取当前发生中断的原因，它是一个只读寄存器。表 2.2.5 列出了 IIR 寄存器各位的功能。  
 **<center>表 2.2.5 IIR 寄存器各位的功能**  
-| Bit | R/W | Bit Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Interrupt Cleared when                                                                                                                                                                                                                         |
-| --- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0   | R   | Interrupt Pending </br> 0 = Interrupt Pending </br> 1 = No Interrupt Pending                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | No Interrupt Pending                                                                                                                                                                                                                           |
-| 3-1 | R   | 3 = Receiver Line Status Interrupt </br>&nbsp;&nbsp;Parity, Data overrun, or Framing error, or Break Interrupt  </br>2 = Receiver Data available </br>&nbsp;&nbsp;Receiver FIFO trigger level reached </br>6 = Timeout Indication </br>&nbsp;&nbsp;After a receiver Data Available interrupt, when no Characters read from the receive FIFO for the time of four characters transfer time, and FIFO is not empty </br>1 = Transmit Hold Register Empty  </br>0 = Modem Status Interrupt </br>&nbsp;&nbsp;CTS, SDR RI or DCD change state </br>4, 5, 7 – will not occur | 3 - Reading LSR </br></br>2 - FIFO continents drops below trigger level </br></br>6 - Reading the Receiver Buffer Register </br></br>1 - Writing to the Transmitter Holding Register (the Write FIFO) or reading IIR </br></br>0 - Reading MSR |
-| 7-4 | R   | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ---                                                                                                                                                                                                                                            |
+| Bit | R / W | Bit Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Interrupt Cleared when                                                                                                                                                                                                                         |
+| --- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | R     | Interrupt Pending </br> 0 = Interrupt Pending </br> 1 = No Interrupt Pending                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | No Interrupt Pending                                                                                                                                                                                                                           |
+| 3-1 | R     | 3 = Receiver Line Status Interrupt </br>&nbsp;&nbsp;Parity, Data overrun, or Framing error, or Break Interrupt  </br>2 = Receiver Data available </br>&nbsp;&nbsp;Receiver FIFO trigger level reached </br>6 = Timeout Indication </br>&nbsp;&nbsp;After a receiver Data Available interrupt, when no Characters read from the receive FIFO for the time of four characters transfer time, and FIFO is not empty </br>1 = Transmit Hold Register Empty  </br>0 = Modem Status Interrupt </br>&nbsp;&nbsp;CTS, SDR RI or DCD change state </br>4, 5, 7 – will not occur | 3 - Reading LSR </br></br>2 - FIFO continents drops below trigger level </br></br>6 - Reading the Receiver Buffer Register </br></br>1 - Writing to the Transmitter Holding Register (the Write FIFO) or reading IIR </br></br>0 - Reading MSR |
+| 7-4 | R     | ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | ---                                                                                                                                                                                                                                            |
 </center>  
   
 ##### FIFO Control Register (FCR)  
@@ -158,13 +158,13 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 **<center>表 2.2.7 LCR 寄存器各位的功能**  
 | Bit | R / W | Bit Description                                                                                                                                                 |
 | --- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1-0 | R/W   | Word Length Select </br> 00 = 5 bits </br> 01 = 6 bits </br> 10 = 7 bits </br> 11 = 8 bits                                                                      |
-| 2   | R/W   | Number of Stop bits </br> 0 = 1 stop bit </br> 1 = 2 stop bits (1.5 stop bits with 5 data bits) </br> Note: the receiver checks for the 1st stop bit only       |
-| 3   | R/W   | Parity Enable </br> 0 = no parity </br> 1 = enable parity                                                                                                       |
-| 4   | R/W   | Even Parity (used only when parity is enabled) </br> 0 = odd parity </br> 1 = even parity                                                                       |
-| 5   | R/W   | Stick Parity </br> Ignored                                                                                                                                      |
-| 6   | R/W   | Set Brake </br> 0 = normal operation </br> 1 = The serial output is forced to logic 0 (Spacing State, which </br> will cause a Break interrupt in the receiver) |
-| 7   | R/W   | Divisor Latch (baud rate generator) Access bit </br> This bit must be set to 1 to set the baud rate, it Must be set to 0 to </br> access the FIFO’s             |
+| 1-0 | R / W | Word Length Select </br> 00 = 5 bits </br> 01 = 6 bits </br> 10 = 7 bits </br> 11 = 8 bits                                                                      |
+| 2   | R / W | Number of Stop bits </br> 0 = 1 stop bit </br> 1 = 2 stop bits (1.5 stop bits with 5 data bits) </br> Note: the receiver checks for the 1st stop bit only       |
+| 3   | R / W | Parity Enable </br> 0 = no parity </br> 1 = enable parity                                                                                                       |
+| 4   | R / W | Even Parity (used only when parity is enabled) </br> 0 = odd parity </br> 1 = even parity                                                                       |
+| 5   | R / W | Stick Parity </br> Ignored                                                                                                                                      |
+| 6   | R / W | Set Brake </br> 0 = normal operation </br> 1 = The serial output is forced to logic 0 (Spacing State, which </br> will cause a Break interrupt in the receiver) |
+| 7   | R / W | Divisor Latch (baud rate generator) Access bit </br> This bit must be set to 1 to set the baud rate, it Must be set to 0 to </br> access the FIFO’s             |
 </center>  
   
 ##### Modem Control Register (MCR)  
@@ -172,11 +172,11 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
 **<center>表 2.2.8 MCR寄存器各位的功能**  
 | Bit | R / W | Bit Description                           |
 | --- | ----- | ----------------------------------------- |
-| 0   | R/W   | DTRn </br> bit is inverted to drive pin   |
-| 1   | R/W   | RTSn </br> bit is inverted to drive pin   |
-| 2   | R/W   | Out 1n </br> bit is inverted to drive pin |
-| 3   | R/W   | Out 2n </br> bit is inverted to drive pin |
-| 4   | R/W   | Loop Back mode                            |
+| 0   | R / W | DTRn </br> bit is inverted to drive pin   |
+| 1   | R / W | RTSn </br> bit is inverted to drive pin   |
+| 2   | R / W | Out 1n </br> bit is inverted to drive pin |
+| 3   | R / W | Out 2n </br> bit is inverted to drive pin |
+| 4   | R / W | Loop Back mode                            |
 | 7-5 | R     | 0 (ignored)                               |
 </center>  
 
@@ -222,20 +222,160 @@ $$Baud=\frac{f_{输入时钟}}{16(N+1)}$$
 #### GPIO GPIO 通用输入输出
 GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个，开发者若有需求也可以通过修改 SoC 顶层设计来增加或者减少 GPIO 的数量。GPIO 寄存器各位的功能如表 2.2.11  
 **<center>表 2.2.11 GPIO 寄存器各位的功能**  
-| Address                        | R/W | Register Mnemonic | Function                    |
-| ------------------------------ | --- | ----------------- | --------------------------- |
-| 0x1A10_1000                    | R/W | PADDIR            | Pad Direction               |
-| 0x1A10_1004                    | R   | PADIN             | Input Values                |
-| 0x1A10_1008                    | R/W | PADOUT            | Output Values               |
-| 0x1A10_100C                    | R/W | INTEN             | Interrupt Enable            |
-| 0x1A10_1010                    | R/W | INTTYPE0          | Interrupt Type 0            |
-| 0x1A10_1014                    | R/W | INTTYPE1          | Interrupt Type 1            |
-| 0x1A10_1018                    | R/W | INTSTATUS         | Interrupt Status            |
-| 0x1A10_1020 ~ </br>0x1A10_103C | R/W | PADCFG0-7         | Pad Configuration Registers |
+| Address                        | R / W | Register Mnemonic | Function                    |
+| ------------------------------ | ----- | ----------------- | --------------------------- |
+| 0x1A10_1000                    | R / W | PADDIR            | Pad Direction               |
+| 0x1A10_1004                    | R     | PADIN             | Input Values                |
+| 0x1A10_1008                    | R / W | PADOUT            | Output Values               |
+| 0x1A10_100C                    | R / W | INTEN             | Interrupt Enable            |
+| 0x1A10_1010                    | R / W | INTTYPE0          | Interrupt Type 0            |
+| 0x1A10_1014                    | R / W | INTTYPE1          | Interrupt Type 1            |
+| 0x1A10_1018                    | R / W | INTSTATUS         | Interrupt Status            |
+| 0x1A10_1020 ~ </br>0x1A10_103C | R / W | PADCFG0-7         | Pad Configuration Registers |
 </center>  
   
 ##### PADDIR 寄存器  
+这个寄存器被用来控制各个 GPIO 端口的工作方向，某位设置为 1 时表示该端口设置为输出模式，设置为 0 时表示该端口设置为输入模式。复位后各位的默认值均为 0，即复位后所有 GPIO 初始为输入模式。  
+  
+##### PADIN 寄存器  
+这个寄存器存放了各个 GPIO 端口当前接受的电平高低，是只读寄存器。  
+  
+##### PADOUT 寄存器  
+这个寄存器被用来控制处于输出模式的各个 GPIO 端口的输出电平的高低。  
+  
+##### INTEN 寄存器  
+每个 GPIO 端口在处于输入模式时都可以发出中断请求，INTEN 寄存器被用来允许或禁用各个端口发出中断请求，各个端口发出中断请求的事件可通过 INTTYPE0、INTTYPE1 两个寄存器的组合设置为如表 2.2.12 所示的四种之一。  
+| **<center>表 2.2.12 INTEN 寄存器的四种设置** 
+| INTTYPE0 | INTTYPE1 | 发出中断请求的事件 |
+| -------- | -------- | ------------------ |
+| 0        | 0        | 高电平             |
+| 1        | 0        | 低电平             |
+| 0        | 1        | 上升沿             |
+| 1        | 1        | 下降沿             |
+</center>  
+  
+##### INTTYPE0、INTTYPE1 寄存器  
+见2.5.2.4。  
+  
+##### INTSTATUS 寄存器  
+这个寄存器被用来存放每个 GPIO 端口的中断状态，若某一位为 1，则说明该位对应的端口发出了中断请求，在读取后该位会被清除为 0。  
+  
+##### PADCFG0-7 寄存器  
+这个寄存器可被用来配置 GPIO 的各个方面，通常用于 ASIC，比如可被用于配置驱动强度、施密特触发器、回转率等。这些配置参数依赖于外部设计，因此不同的 SoC 都可自由地以所需方式来使用PADCFG0-7寄存器。  
+目前我们 SoC 没有这些配置，所以可忽略此寄存器。  
+  
+#### SPI Master 端口  
+SPI (Serial Peripheral Interface) 是一种全双工的同步通信总线。本 SoC 支持有 SPI Master，默认开放了端口 0，连接在用户 Flash 的接口上。此外，还有 3 个 SPI Master 默认没有接到物理引脚上，如有需要，可通过修改 FPGA 设计里的 pulp_soc.v 文件将所需端口从物理引脚上引出使用。表 2.2.13 介绍了 SPI Master 的各个信号。  
+**<center>表 2.2.13 SPI Master 各个信号介绍**  
+| Signal        | Direction | Description       |
+| ------------- | --------- | ----------------- |
+| spi_clk       | output    | Master Clock      |
+| spi_csn0      | output    | Chip Select 0     |
+| spi_csn1      | output    | Chip Select 1     |
+| spi_csn2      | output    | Chip Select 2     |
+| spi_csn3      | output    | Chip Select 3     |
+| spi_mode[1:0] | output    | SPI Mode          |
+| spi_sdo0      | output    | Output Line 0     |
+| spi_sdo1      | output    | Output Line 1     |
+| spi_sdo2      | output    | Output Line 2     |
+| spi_sdo3      | output    | Output Line 3     |
+| spi_sdi0      | input     | Input Line 0      |
+| spi_sdi1      | input     | Input Line 1      |
+| spi_sdi2      | input     | Input Line 2      |
+| spi_sdi3      | input     | Input Line 3      |
+| events_o[1:0] | output    | Event / Interrupt |
+</center>  
 
+这四组 SPI Master 端口使用同一组寄存器来进行控制，表 2.2.14 介绍了 SPI Master 的各个寄存器。  
+**<center>表 2.2.14 SPI Master 各个寄存器介绍**  
+| Address     | R / W | Register Mnemonic | Function                |
+| ----------- | ----- | ----------------- | ----------------------- |
+| 0x1A10_2000 | R / W | STATUS            | Register                |
+| 0x1A10_2004 | R / W | CLKDIV            | Clock Divider           |
+| 0x1A10_2008 | R / W | SPICMD            | SPI Command             |
+| 0x1A10_200C | R / W | SPIADR            | SPI Address             |
+| 0x1A10_2010 | R / W | SPILEN            | SPI Transfer Length     |
+| 0x1A10_2014 | R / W | SPIDUM            | SPI Dummy Cycles        |
+| 0x1A10_2018 | W     | TXFIFO            | SPI Transmit FIFO       |
+| 0x1A10_2020 | R     | RXFIFO            | SPI Receive FIFO        |
+| 0x1A10_2024 | W     | INTCFG            | Interrupt Configuration |
+</center>  
+
+##### STATUS (Status Register)  
+SPI 设置寄存器，使用了 0 ~ 11 位，高位 12 ~ 31 不使用，复位后初始值为0x0000_0000。各位的作用如下：  
+  
+<center>
+
+![a](imgs/img_02_02_05.png)
+</center>
+
+Bit 11:8 CS: Chip Select.  
+&emsp;&emsp;Specify the chip select signal that should be used for the next transfer.  
+Bit 4 SRST: Software Reset.  
+&emsp;&emsp;Clear FIFOs and abort active transfers.  
+Bit 3 QWR: Quad Write Command.  
+&emsp;&emsp;Perform a write using Quad SPI mode.  
+Bit 2 QRD: Quad Read Command.  
+&emsp;&emsp;Perform a read using Quad SPI mode.  
+Bit 1 WR: Write Command.  
+&emsp;&emsp;Perform a write using standard SPI mode.  
+Bit 0 RD: Read Command.  
+&emsp;&emsp;Perform a read using standard SPI mode.    
+  
+##### CLKDIV (Clock Divider)  
+SPI 时钟分频系数设置寄存器，该寄存器的 0 ~ 7 位用来设置 SPI 的时钟相对于 SoC 系统时钟的分频系数，8 ~ 31 位不使用。在 SPI 进行传输时不能修改该寄存器的值。  
+<center>
+
+![a](imgs/img_02_02_06.png)
+</center>
+  
+##### SPICMD (SPI Command)  
+SPI 命令寄存器，用来存放需要发送到 SPI 的命令。当即将对某些外设执行读或写传输时，SPI 命令会在任何数据被读或写之前被发送。SPI 命令的长度可以通过 SPILEN 寄存器控制，最长为 32 位。  
+  
+##### SPIADR (SPI Address)  
+SPI 地址寄存器。当即将对某些外设执行读或写传输时，需要访问的外设中的地址会在发送完 SPI 命令之后、发送数据之前被发送。SPI 地址的长度可以用 SPILEN 寄存器控制，最长为 32 位。  
+  
+##### SPILEN (SPI Transfer Length)  
+SPI 传输长度寄存器，可被用于设置指令长度、地址长度、数据长度，各位的功能如下。  
+<center>
+
+![a](imgs/img_02_02_07.png)
+</center>
+  
+Bit 31:16 DATALEN: SPI Data Length.  
+&emsp;&emsp;The number of bits read or written. Note that first the SPI command and address are written to an SPI slave device.  
+Bit 13:8 ADDRLEN: SPI Address Length.  
+&emsp;&emsp;The number of bits of the SPI address that should be sent.  
+Bit 5:0 CMDLEN: SPI Command Length.  
+&emsp;&emsp;The number of bits of the SPI command that should be sent.  
+
+##### SPIDUM (SPI Dummy Cycles)  
+SPI Dummy Cycles 设置寄存器，详情如下。  
+<center>
+
+![a](imgs/img_02_02_08.png)
+</center>
+  
+Bit 31:16 DUMMYWR: Write Dummy Cycles.  
+&emsp;&emsp;Dummy cycles (nothing being written or read) between sending the SPI command +SPI address and writing the data.  
+Bit 15:0 DUMMYRD: Read Dummy Cycles.  
+&emsp;&emsp;Dummy cycles (nothing being written or read) between sending the SPI command +SPI address and reading the data.  
+  
+##### TXFIFO (SPI Transmit FIFO)  
+SPI 发送数据 FIFO 型缓冲寄存器。  
+  
+##### RXFIFO (SPI Receive FIFO)  
+SPI 接收数据 FIFO 型缓冲寄存器。  
+  
+##### INTCFG (Interrupt Configuration)  
+SPI 中断配置寄存器，可被用来配置与 SPI 相关的中断。其中最高位（第 31 位）可被用来设置是否允许 SPI 中断。  
+<center>
+
+![a](imgs/img_02_02_09.png)
+</center>
+
+#### I²C 端口  
+I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.13 列出了 I²C 使用的各个寄存器的介绍。  
 
 **<center>表 2.2.x**  
 | Bit | R / W | Bit Description |
