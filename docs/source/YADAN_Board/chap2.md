@@ -375,13 +375,172 @@ SPI 中断配置寄存器，可被用来配置与 SPI 相关的中断。其中�
 </center>
 
 #### I²C 端口  
-I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.13 列出了 I²C 使用的各个寄存器的介绍。  
+I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.2.15 列出了 I²C 使用的各个寄存器的介绍。  
+**<center>表 2.2.15**  
+| Address     | R/W | Register Mnemonic | Function                |
+| ----------- | --- | ----------------- | ----------------------- |
+| 0x1A10_5000 | R/W | CPR               | Clock Prescale Register |
+| 0x1A10_5004 | R/W | CTRL              | Control Register        |
+| 0x1A10_5008 | R   | RX                | Receive Register        |
+| 0x1A10_500C | R   | STATUS            | Status Register         |
+| 0x1A10_5010 | W   | TX                | Transmit Register       |
+| 0x1A10_5014 | R/W | CMD               | Command Register        |
+</center>  
+  
+##### CPR (Clock Prescale Register)  
+I²C 时钟预分频寄存器。PRE 是 CPR 的低16位，可被用于设置时钟预分器，以实现所需的 I²C 时钟，CPR 的高16位未使用。（该模块设置的分频的时钟也存在误差，在设置 I²C 频率时，PRE 的值应被设置为 24000000 / 5 / I²C 需要的频率）  
+<center>
 
-**<center>表 2.2.x**  
-| Bit | R / W | Bit Description |
-| --- | ----- | --------------- |
-|     |       |                 |
+![a](imgs/img_02_02_10.png)
+</center>
+  
+##### CTRL (Control Register)  
+I²C 控制寄存器，只使用了第 6 和 7 两位，其余位未使用，详情如下。  
+<center>
+
+![a](imgs/img_02_02_11.png)
+</center>
+
+Bit 7  EN: Enable.  
+&emsp;&emsp;Enable the I²C peripheral.  
+Bit 6  IE: Interrupt enable.  
+&emsp;&emsp;Enable interrupts.  
+Bit 5:0  Reserved: Set to 0.  
+
+##### RX (Receive Register)  
+I²C 接收寄存器，使用低8位。  
+<center>
+
+![a](imgs/img_02_02_12.png)
+</center>
+
+##### STATUS (Status Register)  
+I²C 状态寄存器，可被用来查询当前 I²C 的状态，各位的功能如下。  
+<center>
+
+![a](imgs/img_02_02_13.png)
+</center>
+
+Bit 7   RXA:   Acknowledge from sent data.  
+Bit 6   BUS:   Bus is busy.  
+Bit 5   AL:    Arbitration lost.  
+Bit 4:2   Reserved:  Set to 0.  
+Bit 1   TIP:    Transfer in progress.  
+Bit 0   IRQ:    Interrupt received.  
+&emsp;&emsp;This flag is always set when transmission has finished or bus arpitration was lostm, regardless of whether interrupts are enabled or not. This flag can possibly polled and is cleared by writing 1 to the IA command register.  
+  
+##### TX (Transmit Register)  
+I²C 发送寄存器，使用低8位。  
+<center>
+
+![a](imgs/img_02_02_14.png)
+</center>
+
+##### CMD (Command Register)  
+I²C 命令寄存器，可被用来控制 I²C 接口的动作，例如开始、停止、读、写等。
+<center>
+
+![a](imgs/img_02_02_15.png)
+</center>
+
+Bit 7   STA: Send start bit.  
+Bit 6   STO: Send stop bit.  
+Bit 5   RD: Read from bus.  
+Bit 4   WR: Write to bus.  
+Bit 3   ACK: Acknowledge received data.  
+Bit 2:1   Reserved: Set to 0.  
+Bit 0   IA: Interrupt Acknowldge.  
+&emsp;&emsp;Set to one to acknowledge interrupt. Cleared when transmission is done or arbitrationis lost.  
+
+#### Timer 定时器  
+本 SoC 默认拥有两个功能一样的定时器，各拥有一组寄存器但地址不同，Timer0 在较低地址，Timer1 在较高地址。如果需要增加定时器，也可以依此规律在更高地址再增加一组这样的寄存器。定时器寄存器组的详情如表 2.14。  
+**<center>表 2.2.16**  
+| Address     | R/W | Register Mnemonic | Function            |
+| ----------- | --- | ----------------- | ------------------- |
+| 0x1A10_30?0 | R/W | TIMER             | Current Timer Value |
+| 0x1A10_30?4 | R/W | CTRL              | Timer Control       |
+| 0x1A10_30?8 | R/W | CMP               | Timer Compare       |
+
+*注：其中的 `?` 代表的含义是：如果是 Timer0，则 `?` 为 0；如果是 Timer1，则 `?` 为 1。*
+</center>  
+  
+##### TIMER (Current Timer Value)  
+定时器当前计数值寄存器。  
+<center>
+
+![a](imgs/img_02_02_16.png)
+</center>
+  
+##### CTRL (Timer Control)  
+定时器控制寄存器。可被用来设置定时器的预分频值和定时器的启动。定时器在启动状态时，被系统时钟触发 PRE 次之后才会使 TIMER 加 1。CTRL 的详情如下。  
+<center>
+
+![a](imgs/img_02_02_17.png)
+</center>
+
+Bit 5:3   PRE: Prescaler value.  
+Bit 0     EN: Enable the timer.  
+  
+##### CMP (Timer Compare)  
+定时器比较寄存器。设置该寄存器中的值后，当定时器当前计数值寄存器 (TIMER) 的值达到这个值时会触发定时器中断。  
+<center>
+
+![a](imgs/img_02_02_18.png)
+</center>
+
+#### 中断 / 异常控制模块  
+PULPino 最大支持 32 个矢量中断和 32 个异常，中断线和异常线分别被隔离和缓冲。本实验所用到的 SoC 默认定义了 9 个中断和 3 个异常。表 2.2.17 列出了各个中断 / 异常控制寄存器的功能。  
+**<center>表 2.2.17 中断 / 异常控制寄存器总览**  
+| Address     | R/W | Register Mnemonic | Function                |
+| ----------- | --- | ----------------- | ----------------------- |
+| 0x1A10_4000 | R/W | IER               | Interrupt Enable        |
+| 0x1A10_4004 | R/W | IPR               | Interrupt Pending       |
+| 0x1A10_4008 | W   | ISP               | Interrupt Set Pending   |
+| 0x1A10_400C | W   | ICP               | Interrupt Clear Pending |
+| 0x1A10_4010 | R/W | EER               | Event Enable            |
+| 0x1A10_4014 | R   | EPR               | Event Pending           |
+| 0x1A10_4018 | W   | ESP               | Event Set Pending       |
+| 0x1A10_401C | W   | ECP               | Event Clear Pending     |
+| 0x1A10_4020 | R/W | SCR               | Sleep Control           |
+| 0x1A10_4024 | R   | SSR               | Sleep Status            |
 </center>  
 
-// TODO:  
+##### IER (Interrupt Enable)  
+中断允许寄存器。每一位可被用于控制对应的中断的允许与禁用。  
+
+##### IPR (Interrupt Pending)  
+中断挂起寄存器。每一位可被用于读 / 写对应的中断当前是否处于挂起状态。  
+  
+##### ISP (Interrupt Set Pending)  
+中断挂起设置寄存器。每一位可被用于触发对应的中断。  
+  
+##### ICP (Interrupt Clear Pending)  
+中断挂起清除寄存器。每一位可被用于清除对应的处于挂起状态的中断源。  
+  
+##### EER (Event Enable)  
+事件异常允许寄存器。每一位可被用于控制对应的事件异常的允许与禁用。  
+  
+##### EPR (Event Pending)  
+事件异常挂起寄存器。每一位可被用于读 / 写对应的事件异常当前是否处于挂起状态。  
+  
+##### ESP (Event Set Pending)  
+事件异常挂起设置寄存器。每一位可被用于触发对应的事件异常。  
+  
+##### ECP (Event Clear Pending)  
+事件异常挂起清除寄存器。每一位可被用于清除对应的处于挂起状态的事件异常。  
+  
+##### SCR (Sleep Control)  
+休眠控制寄存器。将最低位设置为 1 可以让内核进入休眠。当中断或事件异常出现时，内核将再次被唤醒。  
+<center>
+
+![a](imgs/img_02_02_19.png)
+</center>
+
+##### SSR (Sleep Status)  
+休眠状态寄存器。如果核心当前处于休眠状态且有时钟门控，最低位会被置为 1。  
+<center>
+
+![a](imgs/img_02_02_20.png)
+</center>
+
   
