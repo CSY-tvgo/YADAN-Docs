@@ -362,7 +362,7 @@ SPI 中断配置寄存器，可被用来配置与 SPI 相关的中断。其中�
 ![a](imgs/img_02_02_09.png)
 </center>
 
-#### I²C 端口  
+#### I²C 端口 *(将在后续版本加入，此版本暂时不包含)*  
 I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.1.15 列出了 I²C 使用的各个寄存器的介绍。  
 **<center>表 2.1.15**  
 | Address     | R/W | Register Mnemonic | Function                |
