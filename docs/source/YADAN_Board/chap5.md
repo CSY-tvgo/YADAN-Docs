@@ -4,11 +4,14 @@
   
 ### 实验目的  
 1. 了解和熟悉使用 Arduino IDE 给 YADAN Board 开发程序的方法  
+  
 2. 熟悉和掌握 YADAN Board 的 UART 串口和 GPIO 的使用方法  
 
 ### 实验内容
 1. 了解和学习 Arduino 语言中使用 UART 串口的相关函数，尝试编写代码通过 UART 串口发送 `hello,world`，尝试编写代码接收 PC 通过 UART 串口调试助手发送来的数据。了解和学习 UART 串口收发的数据格式，了解 ASCII 和 HEX 在 UART 串口收发中的区别。  
+  
 2. 了解和学习 Arduino 语言中使用 GPIO 和 PWM 的相关函数，尝试编写代码使用 PWM 控制 LED 的亮暗程度，尝试通过 PWM 调光来实现呼吸灯的效果。  
+  
 3. 尝试将上述的 1、2 结合，编写代码，使得 YADAN Board 能通过 UART 串口接收 PC 发送来的参数以调整呼吸灯的效果，例如调整呼吸频率、总体亮度等等，同时开发板可以反馈当前呼吸灯参数给 PC。  
   
 ### 实验解答  
@@ -21,20 +24,23 @@
    delay(ms);                    // 毫秒延时函数  
    ```
    详情请参考 Arduino Reference:  
-   https://www.arduino.cc/reference/en/  
-
+   [https://www.arduino.cc/reference/en/](https://www.arduino.cc/reference/en/)  
+  
 2. UART 串口的相关函数  
    详情请参考 Arduino Reference:  
-   https://www.Arduino.cc/reference/en/language/functions/communication/serial/  
+   [https://www.Arduino.cc/reference/en/language/functions/communication/serial/](https://www.Arduino.cc/reference/en/language/functions/communication/serial/)  
 
 ## 实验二、 RISC-V GCC 工具链的熟悉与使用
 ### 实验目的  
 1. 学习和掌握第四章中 RISC-V GCC 工具链的使用方法  
+  
 2. 了解和熟悉下载程序的使用  
   
 ### 实验内容  
-1. 百度网盘下载样例空工程，使用 VS Code 打开目录 `Demoproject`，在里面 `main.c` 文件中编写图 4.12 中灯闪烁的代码。使用 `wincompile.py` 编译工程，获得 `simple.bin` 文件。  
+1. 在百度网盘上下载样例空工程，使用 VS Code 打开目录 `Demoproject`，在里面 `main.c` 文件中编写图 4.12 中让灯闪烁的代码。使用 `wincompile.py` 编译工程，获得 `simple.bin` 文件。  
+  
 2. 尝试使用下载程序 `YADANdownload.py`，参照第四章里方法将 `.bin` 文件下载到开发板上观察 LED 的闪烁现象。  
+  
 3. 修改、优化代码。例如尝试自己配置定时器而非直接使用 `delay()` 来实现延时。  
   
 ### 实验解答  
@@ -66,11 +72,14 @@ void ISR_TB_CMP (void);  // Timer_B 的比较中断
 ## 实验三、函数库设计
 ### 实验目的
 1. 学习和熟悉 YADAN Core 或 Zero-riscy 的相关外设库编写的方法  
+  
 2. 了解和学习 I²C 协议  
   
 ### 实验内容
 1. 学习编写 GPIO 库函数  
+  
 2. 设计并编写 UART 串口常用的库函数  
+  
 3. 学习 I²C 协议，编写 I²C 库函数  
   
 ### 实验解答
@@ -115,6 +124,7 @@ int I2C_busy(void);                         // I²C 忙信号查询函数
 ## 实验四、综合实验
 ### 实验目的  
   1. 学习更多外设的原理，并编写函数库  
+  
   2. 将不同外设综合起来，学习系统设计  
   
 ### 实验内容  
@@ -124,6 +134,7 @@ int I2C_busy(void);                         // I²C 忙信号查询函数
   1. 温湿度显示系统  
   使用 DHT11 温湿度传感器采集温湿度信息，通过 UART 串口发送到 PC 机显示。  
   DHT11 是一款单总线通信的温湿度传感器，仅需一个上拉的 GPIO 端口就可以实现数据传输。完成此设计需要了解 DHT11 的通信方式，并编写相应的库函数，实现对 DHT11 的驱动。  
+  
   2. 编写一个 GUI 库实现绘图功能  
   实验三编写了 I²C 库，我们可以借助它驱动 I²C 接口的 128x64 的 OLED 点阵显示屏。  
   在本设计中，我们可以尝试编写一个 GUI 库，实现画点、画线、画常见图形、画字符等操作。  
