@@ -204,9 +204,11 @@ UART 串口的寄存器一共有 12 个，地址为 0x4A10_0000 ~ 0x4A10_001C，
   
 ##### Baud Rate Generator (DLL, DLM)
 这两个寄存器被用来存储生成波特率所需要的分频值，分频值是个 16 位的二进制整数原码，DLL 存放其低 8 位，DLM 存放其高 8 位。计分频值为 $N$，波特率会被设置为  
-$$ Baud=\frac{f_{输入时钟}}{16(N+1)} $$  
+<center>
 
-例如：串口输入时钟为 24 MHz，假如需要设置波特率为 115200，那么需要设置分频值 $N=((24*10^6/115200)/16)-1=12$，则对 DLL 写入 12 (二进制为 00001100)，对 DLM 写入 0 即可（实际波特率约为 115384.6，与 115200 存在允许范围内的误差）。要注意的是，在需要设置波特率时，需要先将 LCR 寄存器的第 7 位设置为 1，才能再对 DLL 与 DLM 进行写入来设置波特率。  
+$Baud=\frac{f_{输入时钟}}{16(N+1)}$
+</center>
+例如：串口输入时钟为 24 MHz，假如需要设置波特率为 115200，那么需要设置分频值 $N=((24 \times 10^6/115200)/16)-1=12$，则对 DLL 写入 12 (二进制为 00001100)，对 DLM 写入 0 即可（实际波特率约为 115384.6，与 115200 存在允许范围内的误差）。要注意的是，在需要设置波特率时，需要先将 LCR 寄存器的第 7 位设置为 1，才能再对 DLL 与 DLM 进行写入来设置波特率。  
 
 #### GPIO GPIO 通用输入输出
 GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个，开发者若有需求也可以通过修改 SoC 顶层设计来增加或者减少 GPIO 的数量。GPIO 寄存器各位的功能如表 2.1.11  
@@ -367,12 +369,12 @@ SPI 中断配置寄存器，可被用来配置与 SPI 相关的中断。其中�
 I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.1.15 列出了 I²C 使用的各个寄存器的介绍。  
 **<center>表 2.1.15**  
 | Address     | R / W | Register Mnemonic | Function                |
-| ----------- | --- | ----------------- | ----------------------- |
+| ----------- | ----- | ----------------- | ----------------------- |
 | 0x4A10_5000 | R / W | CPR               | Clock Prescale Register |
 | 0x4A10_5004 | R / W | CTRL              | Control Register        |
-| 0x4A10_5008 | R   | RX                | Receive Register        |
-| 0x4A10_500C | R   | STATUS            | Status Register         |
-| 0x4A10_5010 | W   | TX                | Transmit Register       |
+| 0x4A10_5008 | R     | RX                | Receive Register        |
+| 0x4A10_500C | R     | STATUS            | Status Register         |
+| 0x4A10_5010 | W     | TX                | Transmit Register       |
 | 0x4A10_5014 | R / W | CMD               | Command Register        |
 </center>  
   
@@ -445,7 +447,7 @@ Bit 0   IA: Interrupt Acknowldge.
 本 SoC 默认拥有两个功能一样的定时器，各拥有一组寄存器但地址不同，Timer0 在较低地址，Timer1 在较高地址。如果需要增加定时器，也可以依此规律在更高地址再增加一组这样的寄存器。定时器寄存器组的详情如表 2.1.16。  
 **<center>表 2.1.16**  
 | Address     | R / W | Register Mnemonic | Function            |
-| ----------- | --- | ----------------- | ------------------- |
+| ----------- | ----- | ----------------- | ------------------- |
 | 0x4A10_30?0 | R / W | TIMER             | Current Timer Value |
 | 0x4A10_30?4 | R / W | CTRL              | Timer Control       |
 | 0x4A10_30?8 | R / W | CMP               | Timer Compare       |
@@ -481,17 +483,17 @@ Bit 0     EN: Enable the timer.
 PULPino 最大支持 32 个矢量中断和 32 个异常，中断线和异常线分别被隔离和缓冲。本实验所用到的 SoC 默认定义了 9 个中断和 3 个异常。表 2.1.17 列出了各个中断 / 异常控制寄存器的功能。  
 **<center>表 2.1.17 中断 / 异常控制寄存器总览**  
 | Address     | R / W | Register Mnemonic | Function                |
-| ----------- | --- | ----------------- | ----------------------- |
+| ----------- | ----- | ----------------- | ----------------------- |
 | 0x4A10_4000 | R / W | IER               | Interrupt Enable        |
 | 0x4A10_4004 | R / W | IPR               | Interrupt Pending       |
-| 0x4A10_4008 | W   | ISP               | Interrupt Set Pending   |
-| 0x4A10_400C | W   | ICP               | Interrupt Clear Pending |
+| 0x4A10_4008 | W     | ISP               | Interrupt Set Pending   |
+| 0x4A10_400C | W     | ICP               | Interrupt Clear Pending |
 | 0x4A10_4010 | R / W | EER               | Event Enable            |
-| 0x4A10_4014 | R   | EPR               | Event Pending           |
-| 0x4A10_4018 | W   | ESP               | Event Set Pending       |
-| 0x4A10_401C | W   | ECP               | Event Clear Pending     |
+| 0x4A10_4014 | R     | EPR               | Event Pending           |
+| 0x4A10_4018 | W     | ESP               | Event Set Pending       |
+| 0x4A10_401C | W     | ECP               | Event Clear Pending     |
 | 0x4A10_4020 | R / W | SCR               | Sleep Control           |
-| 0x4A10_4024 | R   | SSR               | Sleep Status            |
+| 0x4A10_4024 | R     | SSR               | Sleep Status            |
 </center>  
 
 ##### IER (Interrupt Enable)  
@@ -744,9 +746,11 @@ UART 串口的寄存器一共有 12 个，地址为 0x1A10_0000 ~ 0x1A10_001C，
   
 ##### Baud Rate Generator (DLL, DLM)
 这两个寄存器被用来存储生成波特率所需要的分频值，分频值是个 16 位的二进制整数原码，DLL 存放其低 8 位，DLM 存放其高 8 位。计分频值为 $N$，波特率会被设置为  
-$$ Baud=\frac{f_{输入时钟}}{16(N+1)} $$  
+<center>
 
-例如：串口输入时钟为 24 MHz，假如需要设置波特率为 115200，那么需要设置分频值 $N=((24*10^6/115200)/16)-1=12$，则对 DLL 写入 12 (二进制为 00001100)，对 DLM 写入 0 即可（实际波特率约为 115384.6，与 115200 存在允许范围内的误差）。要注意的是，在需要设置波特率时，需要先将 LCR 寄存器的第 7 位设置为 1，才能再对 DLL 与 DLM 进行写入来设置波特率。  
+$Baud=\frac{f_{输入时钟}}{16(N+1)}$
+</center>
+例如：串口输入时钟为 24 MHz，假如需要设置波特率为 115200，那么需要设置分频值 $N=((24 \times 10^6/115200)/16)-1=12$，则对 DLL 写入 12 (二进制为 00001100)，对 DLM 写入 0 即可（实际波特率约为 115384.6，与 115200 存在允许范围内的误差）。要注意的是，在需要设置波特率时，需要先将 LCR 寄存器的第 7 位设置为 1，才能再对 DLL 与 DLM 进行写入来设置波特率。  
 
 #### GPIO GPIO 通用输入输出
 GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个，开发者若有需求也可以通过修改 SoC 顶层设计来增加或者减少 GPIO 的数量。GPIO 寄存器各位的功能如表 2.2.11  
@@ -907,12 +911,12 @@ SPI 中断配置寄存器，可被用来配置与 SPI 相关的中断。其中�
 I²C (Inter-Integrated Circuit) 是一种半双工的同步通信总线。I²C 在电气上被设计成引脚需要以开漏模式输出，即引脚只能输出低电平和高阻态，输出高阻态时，引脚可被上拉电阻拉至高电平。所以，当使用 I²C 时，SCL 和 SDA 端口都需要有上拉电阻。表 2.2.15 列出了 I²C 使用的各个寄存器的介绍。  
 **<center>表 2.2.15**  
 | Address     | R / W | Register Mnemonic | Function                |
-| ----------- | --- | ----------------- | ----------------------- |
+| ----------- | ----- | ----------------- | ----------------------- |
 | 0x1A10_5000 | R / W | CPR               | Clock Prescale Register |
 | 0x1A10_5004 | R / W | CTRL              | Control Register        |
-| 0x1A10_5008 | R   | RX                | Receive Register        |
-| 0x1A10_500C | R   | STATUS            | Status Register         |
-| 0x1A10_5010 | W   | TX                | Transmit Register       |
+| 0x1A10_5008 | R     | RX                | Receive Register        |
+| 0x1A10_500C | R     | STATUS            | Status Register         |
+| 0x1A10_5010 | W     | TX                | Transmit Register       |
 | 0x1A10_5014 | R / W | CMD               | Command Register        |
 </center>  
   
@@ -985,7 +989,7 @@ Bit 0   IA: Interrupt Acknowldge.
 本 SoC 默认拥有两个功能一样的定时器，各拥有一组寄存器但地址不同，Timer0 在较低地址，Timer1 在较高地址。如果需要增加定时器，也可以依此规律在更高地址再增加一组这样的寄存器。定时器寄存器组的详情如表 2.2.16。  
 **<center>表 2.2.16**  
 | Address     | R / W | Register Mnemonic | Function            |
-| ----------- | --- | ----------------- | ------------------- |
+| ----------- | ----- | ----------------- | ------------------- |
 | 0x1A10_30?0 | R / W | TIMER             | Current Timer Value |
 | 0x1A10_30?4 | R / W | CTRL              | Timer Control       |
 | 0x1A10_30?8 | R / W | CMP               | Timer Compare       |
@@ -1021,17 +1025,17 @@ Bit 0     EN: Enable the timer.
 PULPino 最大支持 32 个矢量中断和 32 个异常，中断线和异常线分别被隔离和缓冲。本实验所用到的 SoC 默认定义了 9 个中断和 3 个异常。表 2.2.17 列出了各个中断 / 异常控制寄存器的功能。  
 **<center>表 2.2.17 中断 / 异常控制寄存器总览**  
 | Address     | R / W | Register Mnemonic | Function                |
-| ----------- | --- | ----------------- | ----------------------- |
+| ----------- | ----- | ----------------- | ----------------------- |
 | 0x1A10_4000 | R / W | IER               | Interrupt Enable        |
 | 0x1A10_4004 | R / W | IPR               | Interrupt Pending       |
-| 0x1A10_4008 | W   | ISP               | Interrupt Set Pending   |
-| 0x1A10_400C | W   | ICP               | Interrupt Clear Pending |
+| 0x1A10_4008 | W     | ISP               | Interrupt Set Pending   |
+| 0x1A10_400C | W     | ICP               | Interrupt Clear Pending |
 | 0x1A10_4010 | R / W | EER               | Event Enable            |
-| 0x1A10_4014 | R   | EPR               | Event Pending           |
-| 0x1A10_4018 | W   | ESP               | Event Set Pending       |
-| 0x1A10_401C | W   | ECP               | Event Clear Pending     |
+| 0x1A10_4014 | R     | EPR               | Event Pending           |
+| 0x1A10_4018 | W     | ESP               | Event Set Pending       |
+| 0x1A10_401C | W     | ECP               | Event Clear Pending     |
 | 0x1A10_4020 | R / W | SCR               | Sleep Control           |
-| 0x1A10_4024 | R   | SSR               | Sleep Status            |
+| 0x1A10_4024 | R     | SSR               | Sleep Status            |
 </center>  
 
 ##### IER (Interrupt Enable)  
