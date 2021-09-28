@@ -257,7 +257,7 @@ GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个�
 目前我们 SoC 没有这些配置，所以可忽略此寄存器。  
   
 #### SPI Master 端口  
-SPI (Serial Peripheral Interface) 是一种全双工的同步通信总线。本 SoC 支持有 SPI Master，默认开放了端口 0，连接在用户 Flash 的接口上。此外，还有 3 个 SPI Master 默认没有接到物理引脚上，如有需要，可通过修改 FPGA 设计里的 pulp_soc.v 文件将所需端口从物理引脚上引出使用。表 2.1.13 介绍了 SPI Master 的各个信号。  
+SPI (Serial Peripheral Interface) 是一种全双工的同步通信总线。本 SoC 支持有 SPI Master，默认开放了端口 0，连接在用户 Flash 的接口上。此外，还有 3 个 SPI Master 默认没有接到物理引脚上，如有需要，可通过修改 FPGA 设计里的 `yadan_riscv_sopc.v` 文件将所需端口从物理引脚上引出使用。表 2.1.13 介绍了 SPI Master 的各个信号。  
 **<center>表 2.1.13 SPI Master 各个信号介绍**  
 | Signal        | Direction | Description       |
 | ------------- | --------- | ----------------- |
@@ -800,7 +800,7 @@ GPIO 寄存器最多可以支持 32 个 GPIO 口，本 SoC 默认开放 16 个�
 目前我们 SoC 没有这些配置，所以可忽略此寄存器。  
   
 #### SPI Master 端口  
-SPI (Serial Peripheral Interface) 是一种全双工的同步通信总线。本 SoC 支持有 SPI Master，默认开放了端口 0，连接在用户 Flash 的接口上。此外，还有 3 个 SPI Master 默认没有接到物理引脚上，如有需要，可通过修改 FPGA 设计里的 pulp_soc.v 文件将所需端口从物理引脚上引出使用。表 2.2.13 介绍了 SPI Master 的各个信号。  
+SPI (Serial Peripheral Interface) 是一种全双工的同步通信总线。本 SoC 支持有 SPI Master，默认开放了端口 0，连接在用户 Flash 的接口上。此外，还有 3 个 SPI Master 默认没有接到物理引脚上，如有需要，可通过修改 FPGA 设计里的 `pulp_soc.v` 文件将所需端口从物理引脚上引出使用。表 2.2.13 介绍了 SPI Master 的各个信号。  
 **<center>表 2.2.13 SPI Master 各个信号介绍**  
 | Signal        | Direction | Description       |
 | ------------- | --------- | ----------------- |
