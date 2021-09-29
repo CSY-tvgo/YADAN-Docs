@@ -40,7 +40,7 @@
   
 在该模式下载完成后，开发板每次上电时，会先将 Flash 中存储的配置数据自动加载到 FPGA 中。  
   
-## 使用Arduino IDE开发应用  
+## 使用 Arduino IDE 开发应用  
   
 // TODO:  
   
