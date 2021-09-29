@@ -6,8 +6,8 @@
 
 综合好的 YADAN SoC 的 `.bit` 文件为 `Yadan.bit`，PULPino SoC 的为 `pulpino_zeroriscy.bit`，分别可在下边两个链接中找到。  
   
-+ YADAN SoC: https://gitee.com/verimake/yadansoc/tree/master/prj
-+ PULPino SoC: https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g (提取码: 3005, 在 “Zeroriscy内核开发工具” 文件夹中)
++ YADAN SoC: [https://gitee.com/verimake/yadansoc/tree/master/prj](https://gitee.com/verimake/yadansoc/tree/master/prj)
++ PULPino SoC: [https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g](https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g) (提取码: 3005, 在 “Zeroriscy内核开发工具” 文件夹中)
   
 打开安装好的 TD 软件，点击如图 4.1 所示的按钮打开下载工具。
   
