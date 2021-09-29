@@ -3,7 +3,9 @@ Welcome to YADAN Board's documentation!
 欢迎访问鸭蛋开发板的简介与快速入门指南！  
 =========================================
 
-**YADAN Board** 是一块核心为 **Anlogic FPGA** 的可编程硬件设计学习平台，我们可在上边部署一颗 **RISC-V** 指令集的 **YADAN Core** 内核组成的 **YADAN SoC**，帮助我们从嵌入式软件一直学习到数字系统和计算机架构。
+.. image:: YADAN_Board/imgs/img_00_01.jpg
+
+YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台，我们可在上边部署一颗 RISC-V 指令集的 YADAN Core 内核组成的 YADAN SoC，帮助我们从嵌入式软件一直学习到数字系统和计算机架构。
 
 本文档正在更新中，部分内容暂时可能不完整，顺序或排版可能也存在问题，**推荐在几天后阅读正式版本**。
 
