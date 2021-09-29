@@ -27,3 +27,12 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
    几个入门实验 <YADAN_Board/chap5.md>
    一些可能会遇到的问题 <YADAN_Board/chap6.md>
   
+
+YADAN 在 RISC-V 中国峰会 2021 上的介绍
+--------------------------------------------------
+
+.. raw:: html
+
+   <iframe src="https://player.bilibili.com/player.html?aid=546778671&bvid=BV19q4y1W7Jh&cid=373193875&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+点击 `此处 <https://www.bilibili.com/video/BV19q4y1W7Jh>`_ 在哔哩哔哩上看完整视频，点击 `此处 <https://space.bilibili.com/356383684>`_ 在哔哩哔哩上关注 VeriMake。  
