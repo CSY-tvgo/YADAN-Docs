@@ -4,7 +4,7 @@
 ### YADAN 项目的简介  
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的 CPU 内核、SoC、开发板。这套组合支持电子与计算机相关专业的学生全流程地从嵌入式软件一直学习到数字系统和计算机架构。  
   
-YADAN SoC 是 [VeriMake](https://www.verimake.com/) 设计的一款 SoC，它搭载一颗 RISC-V 指令集的 YADAN Core，开发者可灵活配置自定义的外设。  
+YADAN SoC 是 [VeriMake](https://www.verimake.com/) 设计的一款 SoC，它搭载一颗 RISC-V 指令集的 YADAN Core，开发者可灵活配置自定义的外设。YADAN SoC 开源在了：[https://gitee.com/verimake/yadansoc/](https://gitee.com/verimake/yadansoc/)。  
   
 ### YADAN SoC 的概况  
   
