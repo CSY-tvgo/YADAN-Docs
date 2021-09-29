@@ -82,7 +82,7 @@ https://gitee.com/verimake/yadan_arduino/raw/master/package_verimake_core_index.
 至此，就成功配置好了 Arduino IDE 对 YADAN Board 的支持。  
   
 
-## 3.5 安装 RISC-V GCC 工具链
+## 安装 RISC-V GCC 工具链
 在第 3.4 节的操作中，Arduino IDE 其实已经无痕地帮助我们配置好了 RISC-V GCC 工具链，所以对于初学者而言，Arduino IDE 是很好的平台。然而，如果需要进阶学习，还是需要自己动手安装并配置 RISC-V GCC 工具链的。RISC-V GCC 工具链的主要工作是根据 C/C++ 代码生成 RISC-V CPU 能够执行的机器码，这其中主要包括预处理、编译、汇编、链接等步骤，此外，工具链还提供了调试器、仿真器等辅助开发的工具。
 下文将以 Windows 环境下可用的 [The xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack)为例来介绍安装和配置方法。如果你的系统是 Linux 或 macOS，也可以直接使用 RISC-V 基金会官方提供的 RISC-V GNU Compiler Toolchain，但是该工具链暂时不支持 Windows。各位可以根据自己电脑的系统来选择安装，两者在使用方法上差别不大。
 我们可以在 GitHub 上下载 xPack GCC，也可以在这个百度网盘的链接中下载：
