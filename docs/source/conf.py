@@ -63,4 +63,4 @@ html_static_path = ['_static']
 source_suffix = [".rst", ".md"]
 master_doc = 'index'
 html_css_files = ["custom.css"]
-highlight_language = ['cpp']
+highlight_language = 'cpp'
