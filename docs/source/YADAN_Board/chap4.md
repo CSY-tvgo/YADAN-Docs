@@ -198,11 +198,9 @@ riscv-none-embed-objdump -D main.elf > main.s
 *(image source: **[COMPILER, ASSEMBLER, LINKER AND LOADER:
 A BRIEF STORY](https://www.tenouk.com/ModuleW.html)**)*</center>  
   
-为了能够更好地掌握我们的代码以及生成的机器码，我们可以自己编写启动代码和链接器。这里的启动代码就是我们的代码头，即进入 `main()` 函数之前机器要做的事，一般由汇编语言编写。链接脚本 (link script) 是后缀为 `.ld` 的文件，该文件描述了链接器输入文件与输出文件之间的映射，链接器读取后可根据其描述将机器码文件与依赖的其它机器码文件进行链接，以生成最终的可执行机器码文件。  
-  
-我们提供了启动代码和链接脚本的样本：`crt0_riscv.s` 和 `link.ld`，复制到工程目录下即可使用，其中的启动代码是一种简化版。  
+为了能够更好地掌握我们的代码以及生成的机器码，我们可以自己编写启动代码和链接器。这里的启动代码就是我们的代码头，即进入 `main()` 函数之前机器要做的事，一般由汇编语言编写。链接脚本 (link script) 是后缀为 `.ld` 的文件，该文件描述了链接器输入文件与输出文件之间的映射，链接器读取后可根据其描述将机器码文件与依赖的其它机器码文件进行链接，以生成最终的可执行机器码文件。我们提供了启动代码和链接脚本的样本：`crt0_riscv.s` 和 `link.ld`，复制到工程目录下即可使用，其中的启动代码是一种简化版。  
 
-在使用 RISC-V GCC 编译(广义)程序的整个流程中，预处理、编译(狭义)、汇编、链接四个阶段的指令分别如下：
+在使用 RISC-V GCC 编译（广义）程序的整个流程中，预处理、编译(狭义)、汇编、链接四个阶段的指令分别如下：
 ```
 riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -E -o main.i main.c              # 1 - 预处理
 riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -S -o main.s main.i              # 2 - 编译
@@ -227,7 +225,7 @@ riscv-none-embed-objcopy -O ihex main.elf main.hex    # 转成 HEX
 riscv-none-embed-objcopy -O binary main.elf main.bin  # 转成 BIN
 ```
   
-得到 `.hex` 或者 `.bin` 文件后，继续参考第 4.3.4 节的说明，将文件下载进指令存储器，就可以让 CPU 执行了。  
+得到 `.hex` 或者 `.bin` 文件后，继续参考后文[第 4.3.5 节](#bootloader)的说明，将文件下载进指令存储器，就可以让 CPU 执行了。  
   
 ### 使用 Python 脚本自动编译  
   
@@ -236,7 +234,7 @@ riscv-none-embed-objcopy -O binary main.elf main.bin  # 转成 BIN
 我们可以使用其它工具来自动化这样的繁杂流程，一种方式是使用 GNU Make，不过需要学习 Makefile 的编写规则。然而，因为我们只需要执行几条命令行命令，不必用到 GNU Make 中的更多高级功能，所以可以使用另一种更简单的方式，即使用 Python 编写一个简单的脚本来完成整个流程。  
 （如果没有安装 Python，也可以在百度网盘中找到安装程序）  
   
-在百度网盘下载的文件中，我们可以找到有如图 4.17 所示的样例工程的文件夹，后续开发各种工程可以把它作为目录模板。  
+在百度网盘下载的文件中，我们可以找到有如图 4.17 所示的样例工程的文件夹，后续开发各种工程可以把它作为工程目录的模板。  
 
 **<center>![图 4.17 样例工程的文件夹](imgs/img_04_20.png)  
 图 4.17 样例工程的文件夹</center>**
