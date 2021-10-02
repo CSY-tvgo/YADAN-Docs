@@ -173,11 +173,12 @@ riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 --specs=nosys.specs -o main.elf 
   
 上边的命令中，参数 `-march=rv32imc` 中的 `rv32` 为指定编译器将面向 32 位的 rv32 内核编译程序，`imc` 表示内核支持整形指令(i)、乘除指令(m)和压缩指令(c)；参数 `-mabi=ilp32` 是设置浮点参数传递规则，由于 YADAN Core 和 Zero-riscy 均不支持浮点扩展指令，所以设置为不需要浮点扩展指令的 `ilp32`；参数 `--specs=nosys.specs` 表示使用精简的 C 库替代标准的 C 库；参数 `-o` 用来指定输出的文件的名字和格式，这里命名为了 `main.elf`，即编译成功后就会在同目录下输出 `.elf` 后缀的 `main.elf` 文件。最后的 `main.c` 是指定代码原文件。  
 
-生成的 `.elf` 文件是个机器码文件，但还不能直接给核运行。那么，这个文件里有什么呢？我们可以使用下边这条命令将它转换为汇编代码来查看
+生成的 `.elf` 文件是个机器码文件，但还不能直接给核运行。那么，这个文件里有什么呢？我们可以使用 `objdump` 命令将它反汇编成 `.s` 文件
 ```
 riscv-none-embed-objdump -D main.elf > main.s
 ```
-`objdump` 命令可以将 `.elf` 反汇编成 `.s` 文件，我们打开这个 `main.s` 文件就可以看到汇编代码，如图 4.14。
+
+我们打开这个 `main.s` 文件就可以看到汇编代码，如图 4.14。
   
 **<center>![图 4.14 `main.s` 里的汇编代码](imgs/img_04_16.png)  
 图 4.14 `main.s` 里的汇编代码</center>**
@@ -185,10 +186,10 @@ riscv-none-embed-objdump -D main.elf > main.s
 可以发现，里边不仅有我们的 `main` 函数，还有很多不是我们自己编写的函数，例如 `_start`、`__libc_init_array`、`_exit` 等。其实，这些都是我们在编译 `main.c` 时，编译器另外从 `crt0.o` 文件中加载的。`crt0.o` 是一个启动代码，包含了初始化等工作，例如初始化寄存器、初始化地址空间、初始化中断向量表等。那么真正的编译过程以及所有的代码原型是怎么样的呢？  
   
 整个编译（广义）过程包含以下几个过程，在后面的实验中，我们将分步执行这几个过程，了解其中的完整的流程:  
-1. `gcc -E` 预处理 (preprocess)，输出预处理后的源码  
-2. `gcc -S` 编译 (compile)，输出汇编代码文件  
-3. `gcc -c` 汇编 (assemble)，输出机器码文件(目标文件)  
-4. `gcc -T` 链接 (link)，输出链接文件(即 `.elf` 文件)  
+1. `gcc -E` 预处理 (preprocess)，输出预处理后的源码(`.i` 文件)  
+2. `gcc -S` 编译 (compile)，输出汇编代码文件(`.s` 文件)  
+3. `gcc -c` 汇编 (assemble)，输出机器码文件(`.o` 文件)  
+4. `gcc -T` 链接 (link)，输出链接文件(`.elf` 文件)  
   
 这个流程也可以参考图 4.15。
   
