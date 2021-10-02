@@ -113,7 +113,7 @@ void loop()
   
 我们可以在 VS Code 上安装扩展插件，来获得 C/C++ 语言的自动高亮显示、自动缩进、代码提示等功能，只需点击 VS Code 左侧的 `Extends`，然后在里边搜索一个叫做 `C/C++` 的扩展插件，根据提示安装即可。如果需要增加其它扩展插件，也可以自行上网查找。
 
-### 编写代码、编译、下载
+### 编写代码  
 
 **注：本节中，有关寄存器地址的代码仅供参考，需根据实际选用的 SoC 来填写，寄存器地址可在[第 2 节](chap2.html)中查询。**
   
@@ -152,12 +152,117 @@ int main()
 
     return 1;
 }
-
 ```
   
-编写完成后，按 `Ctrl + S` 保存文件。
+编写完成后，点击 `File -> Save` 或者按键盘快捷键 `Ctrl + S` 保存文件。  
   
-在初学 C/C++ 时，我们可能会被告知程序会从 `main()` 函数开始运行，但是实际上真的是这样的吗？我们接下来来看看如何编译这个 `main.c` 文件，再看看编译后得到的是什么？
+### 编译与观察编译过程  
+  
+在初学 C/C++ 时，我们可能会被告知程序会从 `main()` 函数开始运行，但是实际上真的是这样的吗？我们接下来来看看如何编译这个 `main.c` 文件，再看看编译后得到的是什么。  
+  
+在 VS Code 中，点击 `Terminal -> New Terminal` 开启一个终端，如图 4.13 所示。  
+  
+**<center>![图 4.13 在 VS Code 内打开终端](imgs/img_04_15.png)  
+图 4.13 在 VS Code 内打开终端</center>**
+  
+在终端中，光标左侧显示的是终端当前所在的工作目录，我们能在光标处输入命令来调用 RISC-V GCC 工具链去编译代码，输入  
+```
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 --specs=nosys.specs -o main.elf main.c
+```
+即可开始编译刚刚编写的 `main.c`。  
+  
+上边的命令中，参数 `-march=rv32imc` 中的 `rv32` 为指定编译器将面向 32 位的 rv32 内核编译程序，`imc` 表示内核支持整形指令(i)、乘除指令(m)和压缩指令(c)；参数 `-mabi=ilp32` 是设置浮点参数传递规则，由于 YADAN Core 和 Zero-riscy 均不支持浮点，所以设置为不需要浮点扩展指令的 `ilp32`；参数 `--specs=nosys.specs` 表示使用精简的 C 库替代标准的 C 库；参数 `-o` 用来指定输出的文件的名字和格式，这里命名为了 `main.elf`，即编译成功后就会在同目录下输出 `.elf` 后缀的 `main.elf` 文件。最后的 `main.c` 是指定代码原文件。  
+
+生成的 `.elf` 文件是个机器码文件，但还不能直接给核运行。那么，这个文件里有什么呢？我们可以使用下边这条命令将它转换为汇编代码来查看
+```
+riscv-none-embed-objdump -D main.elf > main.s
+```
+`objdump` 命令可以将 `.elf` 反汇编成 `.s` 文件，我们打开这个 `main.s` 文件就可以看到汇编代码，如图 4.14。
+  
+**<center>![图 4.14 `main.s` 里的汇编代码](imgs/img_04_16.png)  
+图 4.14 `main.s` 里的汇编代码</center>**
+  
+可以发现，里边不仅有我们的 `main` 函数，还有很多不是我们自己编写的函数，例如 `_start`、`__libc_init_array`、`_exit` 等。其实，这些都是我们在编译 `main.c` 时，编译器另外从 `crt0.o` 文件中加载的。`crt0.o` 是一个启动代码，包含了初始化等工作，例如初始化寄存器、初始化地址空间、初始化中断向量表等。那么真正的编译过程以及所有的代码原型是怎么样的呢？  
+  
+整个编译（广义）过程包含以下几个过程，在后面的实验中，我们将分步执行这几个过程，了解其中的完整的流程:  
+1. `gcc -E` 预处理 (preprocess)，输出预处理后的源码  
+2. `gcc -S` 编译 (compile)，输出汇编代码文件  
+3. `gcc -c` 汇编 (assemble)，输出机器码文件(目标文件)  
+4. `gcc -T` 链接 (link)，输出链接文件(即 `.elf` 文件)  
+  
+这个流程也可以参考图 4.15。
+  
+**<center>![图 4.15 C 代码到可执行文件的完整编译流程](imgs/img_04_17.png)  
+图 4.15 C 代码到可执行文件的完整编译流程**  
+*(image source: **[COMPILER, ASSEMBLER, LINKER AND LOADER:
+A BRIEF STORY](https://www.tenouk.com/ModuleW.html)**)*</center>  
+  
+为了能够更好地掌握我们的代码以及生成的机器码，我们可以自己编写启动代码和链接器。这里的启动代码就是我们的代码头，即进入 `main()` 函数之前机器要做的事，一般由汇编语言编写。链接脚本 (link script) 是后缀为 `.ld` 的文件，该文件描述了链接器输入文件与输出文件之间的映射，链接器读取后可根据其描述将机器码文件与依赖的其它机器码文件进行链接，以生成最终的可执行机器码文件。  
+  
+我们提供了启动代码和链接脚本的样本：`crt0_riscv.s` 和 `link.ld`，复制到工程目录下即可使用，其中的启动代码是一种简化版。  
+
+在使用 RISC-V GCC 编译(广义)程序的整个流程中，预处理、编译(狭义)、汇编、链接四个阶段的指令分别如下：
+```
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -E -o main.i main.c              # 1 - 预处理
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -S -o main.s main.i              # 2 - 编译
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -c -o main.o main.s              # 3.1 - 汇编 main.s 文件
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -c -o crt0_riscv.o crt0_riscv.s  # 3.2 - 汇编 crt0_riscv.s 文件
+riscv-none-embed-ld -T link.ld main.o crt0_riscv.o -o main.elf                   # 4 - 链接
+```
+  
+得到 `.elf` 文件后，使用 `objdump` 命令我们也可以反汇编它，来观察它对应的汇编代码。  
+```
+riscv-none-embed-objdump -D main.elf > code.s
+```
+  
+运行成功后，可以打开 `code.s` 文件来观察。我们可以发现，启动文件 `crt0_riscv.s` 被放在了这份汇编代码的开头，直到后边的一行 `jal ra,10c <main>` 才真正跳转到 `main()` 函数开始执行。
+  
+**<center>![图 4.16 `main()` 函数真正的入口](imgs/img_04_18.png)  
+图 4.16 `main()` 函数真正的入口</center>**
+  
+不过，`.elf` 文件还不能直接让 CPU 直接执行，我们可将其转换为 `.hex` 或者 `.bin` 文件，转换的指令如下：
+```
+riscv-none-embed-objcopy -O ihex main.elf main.hex    # 转成 HEX
+riscv-none-embed-objcopy -O binary main.elf main.bin  # 转成 BIN
+```
+  
+得到 `.hex` 或者 `.bin` 文件后，继续参考第 4.3.4 节的说明，将文件下载进指令存储器，就可以让 CPU 执行了。  
+  
+### 使用 Python 脚本自动编译  
+  
+在前一节中，我们发现，想将代码编译并转换成最终的 `.hex` 或者 `.bin` 文件，是需要输入好几步很长的指令的。假如我们在真正开发程序，每次修改代码后都需要编译，反复输入这些很长的指令是比较低效的。  
+  
+我们可以使用其它工具来自动化这样的繁杂流程，一种方式是使用 GNU Make，不过需要学习 Makefile 的编写规则。然而，因为我们只需要执行几条命令行命令，不必用到 GNU Make 中的更多高级功能，所以可以使用另一种更简单的方式，即使用 Python 编写一个简单的脚本来完成整个流程。  
+（如果没有安装 Python，也可以在百度网盘中找到安装程序）  
+  
+在百度网盘下载的文件中，我们可以找到有如图 4.17 所示的样例工程的文件夹，后续开发各种工程可以把它作为目录模板。  
+
+**<center>![图 4.17 样例工程的文件夹](imgs/img_04_20.png)  
+图 4.17 样例工程的文件夹</center>**
+  
+`file_c` 和 `file_s` 分别用于存放 C 代码和汇编代码，启动文件已位于 `file_s` 中，是目前 SoC 适用的一个完整版，后期我们编写的自己的 C 代码只需放入 `file_c` 目录即可。`libc.a ` 和 `libgcc.a` 是库文件，`link.ld` 是链接脚本，它将程序首地址定位在 0x00000000，RAM 定位在 0x00100000。Python 脚本 `wincompile.py` 用来处理 `file_c` 和 `file_s` 文件夹里的源码，它会将这些源码编译并生成最终的 `.bin` 文件，我们在命令行中输入  
+```
+python wincompile.py
+```
+  
+即可运行它自动完成编译，生成的 `.bin` 文件会被命名为 `simple.bin`。  
+  
+### 设计 Bootloader，下载程序至开发板  
+  
+得到了 RISC-V 处理器可执行的文件之后，由于我们之前已经将 SoC 部署到了 FPGA 中，接下来只需将文件载入 SoC 中的指令存储器（从 0x00000000 地址开始，有 64KB 大小）即可执行，将文件载入指令存储器通常有以下三种方法：
+1. 将 `.hex` 或者 `.bin` 文件转换成 `.mif` (Memory Initialization File) 文件，然后在 FPGA 综合工具中导入它再重新综合 SoC。这个方法非常繁琐且耗时。  
+2. 使用调试器将 `.hex` 或者 `.bin` 文件载入到指令存储器中。这个方法要求 SoC 必须要有调试接口，例如 J-Link 等，但我们的 SoC 没有。  
+3. 配置一段程序，存放在 Boot ROM 中。SoC 启动后会先执行 Boot ROM 中的程序，再通过这段程序将数据从外部载入到指令存储器中，即 Bootloader。  
+  
+其中，Bootloader 方法对 YADAN Board 而言是较为合适的方法。我们已预先设计好工作流程图如图 4.18 所示的 Bootloader 程序，并在综合 SoC 时已通过 `.mif` 文件将其导入，每次 FPGA 上电后初始化 SoC 时，都会向 Boot ROM 中初始化这个 Bootloader。  
+  
+**<center>![图 4.18 我们的 Bootloader 的工作流程图](imgs/img_04_19.png)  
+图 4.18 我们的 Bootloader 的工作流程图夹</center>**
+  
+// TODO: 后续内容正在优化中，敬请期待
+  
+
+### 相关文件介绍
   
 // TODO: 后续内容正在优化中，敬请期待
   
