@@ -258,7 +258,7 @@ python wincompile.py
 其中，Bootloader 方法对 YADAN Board 而言是较为合适的方法。我们已预先设计好工作流程图如图 4.18 所示的 Bootloader 程序，并在综合 SoC 时已通过 `.mif` 文件将其导入，每次 FPGA 上电后初始化 SoC 时，都会向 Boot ROM 中初始化这个 Bootloader。  
   
 **<center>![图 4.18 我们的 Bootloader 的工作流程图](imgs/img_04_19.png)  
-图 4.18 我们的 Bootloader 的工作流程图夹</center>**
+图 4.18 我们的 Bootloader 的工作流程图</center>**
   
 // TODO: 后续内容正在优化中，敬请期待
   
