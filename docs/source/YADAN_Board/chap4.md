@@ -133,8 +133,8 @@ void loop()
   
 ```
 #define REG(add) (*(volatile unsigned int *)(add))  // 宏定义能让后边的代码更简短
-#define PADDIR REG(0x4A101000)
-#define PADOUT REG(0x4A101008)
+#define PADDIR REG(0x4A10_1000)
+#define PADOUT REG(0x4A10_1008)
 
 int main()
 {
@@ -239,7 +239,7 @@ riscv-none-embed-objcopy -O binary main.elf main.bin  # 转成 BIN
 **<center>![图 4.17 样例工程的文件夹](imgs/img_04_20.png)  
 图 4.17 样例工程的文件夹</center>**
   
-`file_c` 和 `file_s` 分别用于存放 C 代码和汇编代码，启动文件已位于 `file_s` 中，是目前 SoC 适用的一个完整版，后期我们编写的自己的 C 代码只需放入 `file_c` 目录即可。`libc.a ` 和 `libgcc.a` 是库文件，`link.ld` 是链接脚本，它将程序首地址定位在 0x00000000，RAM 定位在 0x00100000。Python 脚本 `wincompile.py` 用来处理 `file_c` 和 `file_s` 文件夹里的源码，它会将这些源码编译并生成最终的 `.bin` 文件，我们在命令行中输入  
+`file_c` 和 `file_s` 分别用于存放 C 代码和汇编代码，启动文件已位于 `file_s` 中，是目前 SoC 适用的一个完整版，后期我们编写的自己的 C 代码只需放入 `file_c` 目录即可。`libc.a ` 和 `libgcc.a` 是库文件，`link.ld` 是链接脚本，它将程序首地址定位在 0x0000_0000，RAM 定位在 0x0010_0000。Python 脚本 `wincompile.py` 用来处理 `file_c` 和 `file_s` 文件夹里的源码，它会将这些源码编译并生成最终的 `.bin` 文件，我们在命令行中输入  
 ```
 python wincompile.py
 ```
@@ -248,21 +248,21 @@ python wincompile.py
   
 ### Bootloader 的介绍，与下载程序的方法  
   
-得到了 RISC-V 处理器可执行的文件之后，由于我们之前已经将 SoC 部署到了 FPGA 中，接下来只需将文件载入 SoC 中的指令存储器（从 0x00000000 地址开始，有 64KB 大小）即可执行，将文件载入指令存储器通常有以下三种方法：  
+得到了 RISC-V 处理器可执行的文件之后，由于我们之前已经将 SoC 部署到了 FPGA 中，接下来只需将文件载入 SoC 中的指令存储器（从 0x0000_0000 地址开始，有 64KB 大小）即可执行，将文件载入指令存储器通常有以下三种方法：  
 1. 将 `.hex` 或者 `.bin` 文件转换成 `.mif` (Memory Initialization File) 文件，然后在 FPGA 综合工具中导入它再重新综合 SoC。这个方法非常繁琐且耗时。  
 2. 使用调试器将 `.hex` 或者 `.bin` 文件载入到指令存储器中。这个方法要求 SoC 必须要有调试接口，例如 J-Link 等，但我们的 SoC 没有。  
 3. 配置一段程序，存放在 Boot ROM 中。SoC 启动后会先执行 Boot ROM 中的程序，再通过这段程序将数据从外部载入到指令存储器中，即 Bootloader。  
   
-其中，Bootloader 方法对 YADAN Board 而言是较为合适的方法。我们已预先设计好工作流程图如图 4.18 所示的 Bootloader 程序，并在综合 SoC 时已通过 `.mif` 文件将其导入，每次 FPGA 上电后初始化 SoC 时，都会向 Boot ROM (地址 0x00010000 ~ 0x00010800) 中初始化这个 Bootloader。  
+其中，Bootloader 方法对 YADAN Board 而言是较为合适的方法。我们已预先设计好工作流程图如图 4.18 所示的 Bootloader 程序，并在综合 SoC 时已通过 `.mif` 文件将其导入，每次 FPGA 上电后初始化 SoC 时，都会向 Boot ROM (地址 0x0001_0000 ~ 0x0001_0800) 中初始化这个 Bootloader。  
   
 **<center>![图 4.18 我们的 Bootloader 的工作流程图](imgs/img_04_19.png)  
 图 4.18 我们的 Bootloader 的工作流程图</center>**  
   
 Bootloader 首先初始化相关硬件，主要是 UART 串口和 SPI 接口，其中 UART 用来与上位机进行通信，SPI 此时主要用来读写开发板上的 Flash，Flash 可以掉电不失地存储之前写入的程序。完成初始化相关硬件后，Bootloader 会先检查串口是否有收到上位机发来的下载请求，如果有下载请求就会进入接收流程，没有就会去 Flash 里读取上次下载的程序并加载到指令存储器，然后将程序计数器跳转到用户程序起始地址开始执行。  
   
-在从上位机接收用户程序的流程中，会先进行握手。在握手流程中，上位机先发送握手请求，Bootloader 接收到握手请求会对数据进行 CRC16 校验，如果校验通过，会向上位机发送应答信号，上位机收到应答信号后会发送本次传输的数据大小，Bootloader 收到数据大小会写入到 Flash 的 0x00010000 处，然后开始接收上位机发送的代码数据，上位机每发送 128 个字节，Bootloader 接收后都会对数据进行 CRC16 校验，校验通过后会将数据分别写入到指令存储器和 Flash 的对应地址处。  
+在从上位机接收用户程序的流程中，会先进行握手。在握手流程中，上位机先发送握手请求，Bootloader 接收到握手请求会对数据进行 CRC16 校验，如果校验通过，会向上位机发送应答信号，上位机收到应答信号后会发送本次传输的数据大小，Bootloader 收到数据大小会写入到 Flash 的 0x0001_0000 处，然后开始接收上位机发送的代码数据，上位机每发送 128 个字节，Bootloader 接收后都会对数据进行 CRC16 校验，校验通过后会将数据分别写入到指令存储器和 Flash 的对应地址处。  
   
-如果上电后 UART 在一定时间内没有接收到下载请求，或者接收流程中出现数据错误，那么 Bootloader 就会进入另一流程，即从 Flash 里读取上次下载的程序并加载到指令存储器，再将程序计数器跳转到地址 0x00000080 开始执行用户程序。  
+如果上电后 UART 在一定时间内没有接收到下载请求，或者接收流程中出现数据错误，那么 Bootloader 就会进入另一流程，即从 Flash 里读取上次下载的程序并加载到指令存储器，再将程序计数器跳转到地址 0x0000_0080 开始执行用户程序。  
   
 有了 Bootloader 程序，我们就可以更加方便地将编译生成的 `.bin` 机器码文件下载进开发板开始运行了。  
   
