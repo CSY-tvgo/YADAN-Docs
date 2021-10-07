@@ -239,7 +239,47 @@ riscv-none-embed-objcopy -O binary main.elf main.bin  # 转成 BIN
 **<center>![图 4.17 样例工程的文件夹](imgs/img_04_20.png)  
 图 4.17 样例工程的文件夹</center>**
   
-`file_c` 和 `file_s` 分别用于存放 C 代码和汇编代码，启动文件已位于 `file_s` 中，是目前 SoC 适用的一个完整版，后期我们编写的自己的 C 代码只需放入 `file_c` 目录即可。`libc.a ` 和 `libgcc.a` 是库文件，`link.ld` 是链接脚本，它将程序首地址定位在 0x0000_0000，RAM 定位在 0x0010_0000。Python 脚本 `wincompile.py` 用来处理 `file_c` 和 `file_s` 文件夹里的源码，它会将这些源码编译并生成最终的 `.bin` 文件，我们在命令行中输入  
+`file_c` 和 `file_s` 分别用于存放 C 代码和汇编代码，启动文件已位于 `file_s` 中，是目前 SoC 适用的一个完整版，后期我们编写的自己的 C 代码只需放入 `file_c` 目录即可。`libc.a ` 和 `libgcc.a` 是库文件，`link.ld` 是链接脚本，它将程序首地址定位在 0x0000_0000，RAM 定位在 0x0010_0000。  
+  
+我们提供了 Python 脚本 `wincompile.py` 用来处理 `file_c` 和 `file_s` 文件夹里的源码，它会将所有源码自动编译并生成最终的 `.bin` 机器码文件。  
+  
+观察 `wincompile.py` 脚本，可发现里边主要有  
+  
+```
+C2I()   # 预处理
+I2S()   # 编译
+S2O()   # 汇编
+Ld()    # 链接
+```
+  
+四个函数负责实现主要功能。四个函数的代码结构比较相似，我们以 `C2I()` 为例来介绍这些函数的运行过程，以下是 `C2I()` 的源码：  
+  
+```
+def C2I():
+    print('**********C2I**********')
+    files = os.listdir(dir_C + '\\file_c')
+
+    path = '.\\file_i'
+
+    if(os.path.exists(path)):
+        pass
+    else:
+        os.system('mkdir ' + path)
+
+    for file in files:
+        tmp = file.split('.')
+        if(len(tmp) == 1):
+            pass
+        elif(tmp[1].lower() == 'c'):
+            os.system('riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -E -o ' '.\\file_i\\' +
+                      tmp[0] + '.i ' + '.\\file_c\\' + file)
+            print('riscv-none-embed-gcc -march=rv32i -mabi=ilp32 -E -o ' +
+                  '.\\file_i\\' + tmp[0] + '.i ' + tmp[0] + '.c')
+```
+  
+观察这段代码，可发现它会先通过循环来查找目录下的所有 `.c` 文件，然后使用 `os.system()` 函数在终端中调用 `riscv-none-embed-gcc` 工具对找到的每个 `.c` 文件进行预编译。`I2S()`、`S2O()`、`Ld()` 也分别通过循环来进行了各自的操作。这样，即使存在很多 `.c` 文件，我们借助这个脚本，也能很方便地完成整个编译流程，获得最终的机器码文件，而无需人工输入一行行繁杂的命令。  
+  
+这个脚本非常容易使用，我们只需在命令行中输入这一行命令  
 ```
 python wincompile.py
 ```
@@ -280,7 +320,18 @@ Bootloader 首先初始化相关硬件，主要是 UART 串口和 SPI 接口，�
 其中，`comX` 的 `X` 表示 Windows 给已连接的开发板分配的串口号，需根据实际情况修改，`115200` 是 UART 的波特率，`simple.bin` 是需要下载的 `.bin` 文件的文件名，`A` 是个表示 `下载` 的功能标识，后续我们也可以添加其它字母来扩展更多功能。  
   
   
-### 相关文件介绍
+### 相关文件介绍  
   
-// TODO: 后续内容正在优化中，敬请期待
+前文使用 RISC-V GCC 工具链编译程序时使用到了 `crt0_riscv.s` 和 `link.ld` 两个文件，`crt0_riscv.s` 是启动代码，`link.ld` 是链接脚本。了解这两个文件有助于了解程序真正的运行过程。更多内容也可以查看《The RISCV Reader：An Open Architecture Atlas》（[此处](http://www.riscvbook.com/) 可以免费下载中文版）第三章的相关内容。  
+  
+#### link.ld 文件介绍  
+  
+CPU 执行的是存放在指令存储器中指令，这些指令可由 `.bin` 或 `.hex` 文件写入。在前文中，我们介绍了链接器可以将分散的机器码文件链接起来，而链接器就是通过 `link.ld` 链接脚本来知道链接规则的。接下来我们将介绍 `link.ld` 链接脚本的大致结构。
+  
+**<center>![图 4.19 link.ld 文件的开头](imgs/img_04_21.png)  
+图 4.19 link.ld 文件的开头</center>**  
+  
+图 4.19 展示了我们前边给出的 `link.ld` 文件的开头部分。其中，第 3 行指定了链接器在链接时会将标记为 `_startup` 的代码段作为程序的入口地址，这个标记我们在 `crt0_riscv.s` 中将会见到。第 5-10 行设置了指令存储器、数据 RAM、RAM 中栈空间的起始地址以及各自的长度。其中 `instrram` 指指令存储器、`dataram` 指数据 RAM、`stack` 指栈空间。如果在一些情况下需要扩大栈空间，只需修改其长度即可，不过，在设置时要注意，栈空间是位于数据 RAM 中的，所以栈空间的地址不能超出数据 RAM 的地址范围。
+  
+// TODO: 后续内容正在优化中，即将更新
   
