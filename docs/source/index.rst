@@ -1,9 +1,9 @@
-Welcome to YADAN Board's documentation!  
+Welcome to YADAN's documentation!  
 =========================================
 欢迎访问鸭蛋开发板的简介与快速入门指南！  
 =========================================
 
-.. image:: YADAN_Board/imgs/img_00_01.jpg
+.. image:: imgs/img_00_01.jpg
 
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的开源 CPU Core、开源 SoC、开源开发板。YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台，我们可在上边部署一颗 YADAN Core 组成的 YADAN SoC，帮助我们从嵌入式软件一直学习到数字系统和计算机架构。  
 
@@ -16,14 +16,14 @@ YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指�
    :maxdepth: 1
    :caption: 目录
    
-   YADAN Board 开发板介绍 <YADAN_Board/chap1.md>
-   已适配的 SoC 的介绍 (YADAN SoC / PULPino SoC)<YADAN_Board/chap2.md>
-   搭建开发环境 <YADAN_Board/chap3.md>
-   使用 YADAN Board <YADAN_Board/chap4.md>
-   几个入门实验 <YADAN_Board/chap5.md>
+   YADAN Board 开发板介绍 <chap1.md>
+   已适配的 SoC 的介绍 (YADAN SoC / PULPino SoC)<chap2.md>
+   搭建开发环境 <chap3.md>
+   使用 YADAN Board <chap4.md>
+   几个入门实验 <chap5.md>
 
-   [撰写中] 附录：超级快速入门步骤 <YADAN_Board/chap6.md>
-   附录：一些可能会遇到的问题 <YADAN_Board/chap7.md>
+   [撰写中] 附录：超级快速入门步骤 <chap6.md>
+   附录：一些可能会遇到的问题 <chap7.md>
   
 
 YADAN 在 RISC-V 中国峰会 2021 上的介绍

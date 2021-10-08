@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'YADAN Board'
+project = 'YADAN'
 copyright = '2021, VeriMake'
 author = 'Karbon'
 
