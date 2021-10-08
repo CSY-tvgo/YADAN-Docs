@@ -9,7 +9,7 @@ YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指�
 
 如果您在使用 YADAN 的过程中遇到问题，欢迎在 `VeriMake 论坛 <https://www.verimake.com/>`_ 上参与讨论。如果发现文档中存在问题，欢迎在 `这个贴子 <https://verimake.com/topics/269/>`_ 下留言讨论。
 
-当前版本的更新时间为：2021 年 10 月 8 日 UTC+8
+当前版本的更新时间为：2021 年 10 月 8 日 UTC+8，版本更新日志可以看 `这里 <https://github.com/CSY-tvgo/YADAN-Docs/>`_。
 
 .. toctree::
    :numbered:
