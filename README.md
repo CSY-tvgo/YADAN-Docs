@@ -2,7 +2,7 @@
   
 中文版 (zh_CN): [![Documentation Status](https://readthedocs.org/projects/yadan/badge/?version=latest)](http://docs.yadanboard.com/zh_CN/latest/?badge=latest)  
   
-点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋开发板的文档。  
+点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的文档。  
   
 ## 介绍  
   
