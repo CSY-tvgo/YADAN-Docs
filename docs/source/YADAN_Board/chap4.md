@@ -198,14 +198,14 @@ riscv-none-embed-objdump -D main.elf > main.s
 *(image source: **[COMPILER, ASSEMBLER, LINKER AND LOADER:
 A BRIEF STORY](https://www.tenouk.com/ModuleW.html)**)*</center>  
   
-为了能够更好地掌握我们的代码以及生成的机器码，我们可以自己编写启动代码和链接器。这里的启动代码就是我们的代码头，即进入 `main()` 函数之前机器要做的事，一般由汇编语言编写。链接脚本 (link script) 是后缀为 `.ld` 的文件，该文件描述了链接器输入文件与输出文件之间的映射，链接器读取后可根据其描述将机器码文件与依赖的其它机器码文件进行链接，以生成最终的可执行机器码文件。我们提供了启动代码和链接脚本的样本：`crt0_riscv.s` 和 `link.ld`，复制到工程目录下即可使用，其中的启动代码是一种简化版。  
+为了能够更好地掌握我们的代码以及生成的机器码，我们可以自己编写启动代码和链接器。这里的启动代码就是我们的代码头，即进入 `main()` 函数之前机器要做的事，一般由汇编语言编写。链接脚本 (link script) 是后缀为 `.ld` 的文件，该文件描述了链接器输入文件与输出文件之间的映射，链接器读取后可根据其描述将机器码文件与依赖的其它机器码文件进行链接，以生成最终的可执行机器码文件。我们提供了启动代码和链接脚本的样本：`crt0_riscv.S` 和 `link.ld`，复制到工程目录下即可使用，其中的启动代码是一种简化版。  
 
 在使用 RISC-V GCC 编译（广义）程序的整个流程中，预处理、编译(狭义)、汇编、链接四个阶段的指令分别如下：
 ```
 riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -E -o main.i main.c              # 1 - 预处理
 riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -S -o main.s main.i              # 2 - 编译
 riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -c -o main.o main.s              # 3.1 - 汇编 main.s 文件
-riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -c -o crt0_riscv.o crt0_riscv.s  # 3.2 - 汇编 crt0_riscv.s 文件
+riscv-none-embed-gcc -march=rv32imc -mabi=ilp32 -c -o crt0_riscv.o crt0_riscv.S  # 3.2 - 汇编 crt0_riscv.S 文件
 riscv-none-embed-ld -T link.ld main.o crt0_riscv.o -o main.elf                   # 4 - 链接
 ```
   
@@ -214,7 +214,7 @@ riscv-none-embed-ld -T link.ld main.o crt0_riscv.o -o main.elf                  
 riscv-none-embed-objdump -D main.elf > code.s
 ```
   
-运行成功后，可以打开 `code.s` 文件来观察。我们可以发现，启动文件 `crt0_riscv.s` 被放在了这份汇编代码的开头，直到后边的一行 `jal ra,10c <main>` 才真正跳转到 `main()` 函数开始执行。
+运行成功后，可以打开 `code.s` 文件来观察。我们可以发现，启动文件 `crt0_riscv.S` 被放在了这份汇编代码的开头，直到后边的一行 `jal ra,10c <main>` 才真正跳转到 `main()` 函数开始执行。
   
 **<center>![图 4.16 `main()` 函数真正的入口](imgs/img_04_18.png)  
 图 4.16 `main()` 函数真正的入口</center>**
@@ -322,16 +322,74 @@ Bootloader 首先初始化相关硬件，主要是 UART 串口和 SPI 接口，�
   
 ### 相关文件介绍  
   
-前文使用 RISC-V GCC 工具链编译程序时使用到了 `crt0_riscv.s` 和 `link.ld` 两个文件，`crt0_riscv.s` 是启动代码，`link.ld` 是链接脚本。了解这两个文件有助于了解程序真正的运行过程。更多内容也可以查看《The RISCV Reader：An Open Architecture Atlas》（[此处](http://www.riscvbook.com/) 可以免费下载中文版）第三章的相关内容。  
+前文使用 RISC-V GCC 工具链编译程序时使用到了 `crt0_riscv.S` 和 `link.ld` 两个文件，`crt0_riscv.S` 是启动代码，`link.ld` 是链接脚本。了解这两个文件有助于了解程序真正的运行过程。更多内容也可以查看《The RISCV Reader：An Open Architecture Atlas》（[此处](http://www.riscvbook.com/) 可以免费下载中文版）第三章的相关内容。  
   
 #### link.ld 文件介绍  
   
-CPU 执行的是存放在指令存储器中指令，这些指令可由 `.bin` 或 `.hex` 文件写入。在前文中，我们介绍了链接器可以将分散的机器码文件链接起来，而链接器就是通过 `link.ld` 链接脚本来知道链接规则的。接下来我们将介绍 `link.ld` 链接脚本的大致结构。
+CPU 执行的是存放在指令存储器中指令，这些指令可由 `.bin` 或 `.hex` 文件写入。在前文中，我们介绍了链接器可以将分散的机器码文件链接起来，而链接器就是通过 `link.ld` 链接脚本来知道链接规则的。接下来我们将介绍 `link.ld` 链接脚本的大致结构。有关链接脚本的更多介绍，也可以查看 [GNU Manuals 中的 ld 的文档](https://sourceware.org/binutils/docs/ld/)。  
   
 **<center>![图 4.19 link.ld 文件的开头](imgs/img_04_21.png)  
 图 4.19 link.ld 文件的开头</center>**  
   
-图 4.19 展示了我们前边给出的 `link.ld` 文件的开头部分。其中，第 3 行指定了链接器在链接时会将标记为 `_startup` 的代码段作为程序的入口地址，这个标记我们在 `crt0_riscv.s` 中将会见到。第 5-10 行设置了指令存储器、数据 RAM、RAM 中栈空间的起始地址以及各自的长度。其中 `instrram` 指指令存储器、`dataram` 指数据 RAM、`stack` 指栈空间。如果在一些情况下需要扩大栈空间，只需修改其长度即可，不过，在设置时要注意，栈空间是位于数据 RAM 中的，所以栈空间的地址不能超出数据 RAM 的地址范围。
+图 4.19 展示了我们前边给出的 `link.ld` 文件的开头部分。其中，第 3 行指定了链接器在链接时会将标记为 `_startup` 的代码段作为程序的入口地址，这个标记我们在 `crt0_riscv.S` 中将会见到。第 5-10 行设置了指令存储器、数据 RAM、RAM 中栈空间的起始地址以及各自的长度。其中 `instrram` 指指令存储器、`dataram` 指数据 RAM、`stack` 指栈空间。如果在一些情况下需要扩大栈空间，只需修改其长度即可，不过，在设置时要注意，栈空间是位于数据 RAM 中的，所以栈空间的地址不能超出数据 RAM 的地址范围。
+    
+**<center>![图 4.20 link.ld 文件中配置指令段的部分](imgs/img_04_22.png)  
+图 4.20 link.ld 文件中配置指令段的部分</center>**  
   
-// TODO: 后续内容正在优化中，即将更新
+`SECTIONS` 命令告诉链接器如何把输入文件的段 (Sections) 映射到输出文件的各个段。图 4.20 展示的部分配置了 `.vectors` 和 `.text` 指令段的链接情况，配置将 `.vectors` 存放在 `.text` 的前面，并且都按 4 字节对齐。第 26、46 行分别指明，对应段的内容应当存放在 `instrram` 的地址处，即指令存储器里。  
+  
+**<center>![图 4.21 link.ld 文件中配置 `.preinit_array` 和 `.init_array` 段的部分](imgs/img_04_23.png)  
+图 4.21 link.ld 文件中配置 `.preinit_array` 和 `.init_array` 段的部分</center>**  
+  
+图 4.21 展示的部分配置了 `.preinit_array` 段和 `.init_array` 段，它们各是一个函数指针数组，可以分别为包含该段的可执行或共享的对象提供一个单个的预初始化数组和初始化数组，即，可以通过它们来配置全局常量等数据的存放方式。  
+  
+这里要注意的是第 60、68 行这样的配置。每个段都有一个虚拟地址 (virtual address, VMA) 和一个加载地址 (load address, LMA)，加载地址可以由 `AT` 关键字来指定。第 60、68 行这样的语句就是表示这部分内容最终应存放在 `dataram` 的 VMA 中，但是链接器的输出文件会在 `instrram` 的后一个空闲地址作为 LMA。这样做的好处是可以减小最后生成的 `.bin` 文件的大小，如果没有这样的配置，在 `dataram` 和 `instrram` 之间的 0x0001_0000 ~ 0x0010_0000 区域就都会被以 0 填充。但是，这样配置也会存在问题，即，在程序刚开始运行时，直接访问 `dataram` 的地址是无法找到数据的，因为这部分数据还不在 `dataram` 的地址里，需要通过 VMA 来访问，所以在 `crt0_riscv.S` 中需要指定一个数据搬运的工作，第 4.3.6.2 节将继续介绍。  
+  
+#### crt0_riscv.S 文件介绍  
+  
+##### 在进入 `main()` 函数之前
+  
+在第 4.3.6.1 节中我们介绍到，程序的入口在 `_startup` 段，这段程序就存放在 `crt0_riscv.S` 中，代码如图 4.22 所示。
+  
+**<center>![图 4.22 `_startup` 段的代码](imgs/img_04_24.png)  
+图 4.22 `_startup` 段的代码</center>**  
+  
+由图 4.22 中代码可知，从 0x00 到 0x88 都是跳转指令，这部分其实就是中断 / 事件向量表，发生中断 / 事件时，会跳转到各个中断 / 事件的响应程序。例如，当 SoC 复位时会进入复位事件，将跳转到 `reset_handler` 函数中，图 4.23 展示了 `reset_handler` 的代码。  
+  
+**<center>![图 4.23 `reset_handler` 的代码](imgs/img_04_25.png)  
+图 4.23 `reset_handler` 的代码</center>**  
+  
+在程序正式开始时，会先将 32 个寄存器和 `mtvec` 寄存器清零，然后初始化栈空间，再清零 BSS 段。代码如图 4.24。
+  
+**<center>![图 4.24 初始化栈空间、清零 BSS 段](imgs/img_04_26.png)  
+图 4.24 设置堆栈、清除BSS段</center>**  
+  
+然后，将存放在 `instrram` 后面的数据搬运到相应的 `dataram` 的地址中，代码如图 4.25。  
+  
+**<center>![图 4.25 搬运数据到 `dataram`](imgs/img_04_27.png)  
+图 4.25 搬运数据到 `dataram`</center>**  
+  
+完成以上工作后，程序才将真正跳转到 `main()` 函数中去执行程序，代码如图 4.26。  
+  
+**<center>![图 4.26 跳转到 `main()` 函数](imgs/img_04_28.png)  
+图 4.26 跳转到 `main()` 函数</center>**  
+  
+##### 怎样进入中断 / 事件的响应程序  
+  
+图 4.22 展示的代码是中断 / 事件向量表，在响应各个中断 / 事件时，都会执行一条跳转指令，例如 `crt0_riscv.S` 的第 293 行如图 4.27。  
+  
+**<center>![图 4.27 第 293 行的代码](imgs/img_04_29.png)  
+图 4.27 第 293 行的代码</center>**  
+  
+这行代码表示跳转到 `ISR_I2C_ASM` 函数中去执行 I²C 的中断服务程序。`ISR_I2C_ASM` 函数的代码如图 4.28。  
+  
+**<center>![图 4.28 `ISR_I2C_ASM` 函数的代码](imgs/img_04_30.png)  
+图 4.28 `ISR_I2C_ASM` 函数的代码</center>**  
+  
+这段代码里第 111 行的 `store_regs` 是进入中断之后的保存断点保护现场，要用到压栈操作，但是我们的 SoC 并没有设计硬件的压栈和弹栈操作，所以这些操作需要通过软件实现。保护现场并关中断后，将会跳转到 `ISR_I2C`，这个函数可以使用 C 语言编写，只要在 C 文件中编写如图 4.29 所示的代码，就可以让程序链接起来。  
+  
+**<center>![图 4.29 C 文件中的 ISR_I2C() 函数](imgs/img_04_31.png)  
+图 4.29 C 文件中的 ISR_I2C() 函数</center>**  
+  
+需要使用 I²C 中断时，只需要编写 `ISR_I2C()` 函数的实体就可以了，函数运行完成后，CPU 会恢复现场恢复断点，再重新打开中断，然后程序会回到断点继续执行。
   
