@@ -33,7 +33,7 @@ https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g  提取码：3005
 
   
 ### 安装 Arduino IDE 并配置对 YADAN Board 的支持  
-> 详细步骤可参考 [第 3.3 节](chap3.html#arduino-ide-yadan-board)。  
+> 详细步骤可参考 [第 3.4 节](chap3.html#arduino-ide-yadan-board)。  
   
 安装 Arduino IDE，打开它，然后打开 `File -> Preferences`，在 `Additional Boards Manager URLs` 中添加  
 ```
@@ -50,7 +50,7 @@ https://gitee.com/verimake/yadan_arduino/raw/master/package_verimake_core_index.
 图 6.4 选择 Board</center>**  
   
 ### 安装 RISC-V GCC 工具链  
-> 详细步骤可参考 [第 4.1 节](chap4.html#soc-fpga)。  
+> 详细步骤可参考 [第 3.5 节](chap3.html#risc-v-gcc)。  
   
 [The xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack) 是一种 Windows 下可用的 RISC-V GCC 工具链，我们以这个为例来介绍安装和使用步骤。  
   
