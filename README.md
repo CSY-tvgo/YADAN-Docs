@@ -1,10 +1,10 @@
 # YADAN's Documentation  
   
-中文版 (zh_CN): [![Documentation Status](https://readthedocs.org/projects/yadan/badge/?version=latest)](http://docs.yadanboard.com/zh_CN/latest/?badge=latest)  
+中文版 (zh_CN): [![Documentation Status](https://readthedocs.org/projects/yadan/badge/?version=latest)](http://docs.yadanboard.com/zh_CN/latest/?badge=latest) 点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的中文文档。  
   
-点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的文档。  
+Other Languages: Coming...  
   
-## 介绍  
+## 介绍 Introduction  
   
 [![](docs/source/imgs/img_00_01.jpg)](http://docs.yadanboard.com/)  
   
@@ -12,9 +12,16 @@ YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指�
   
 如果您在使用 YADAN 的过程中遇到问题，欢迎在 [VeriMake 论坛](https://www.verimake.com/) 上参与讨论。如果发现文档中存在问题，欢迎在 [这个贴子](https://verimake.com/topics/269/) 下留言讨论。  
   
-点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的文档。  
+点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的中文文档。  
   
-## 版本更新日志  
+### English Introduction  
+YADAN Project includes YADAN Core, YADAN SoC, YADAN Board. They are open-sourced RISC-V CPU Core, SoC, development board. YADAN Board is a programmable platform based on Anlogic FPGA, and we can deploy an YADAN SoC integrated with an YADAN Core on it. YADAN is designed for education, it can help a starter learn from embedded programming to digital system and computer architecture using ONE development board.  
+  
+English version of this documentation would be released later, because we are still testing and improving YADAN and its documentation.  
+  
+PS: "YADAN" in Chinese is "鸭蛋 (Yā Dàn)", pronounced like /jɑː dæn/, which means duck's egg. We named it as "YADAN" because it was born in Nanjing, a Chinese city which has many duck cuisines with great reputation, and we expect each starter can enjoy benefit from YADAN and learn well in EECS-related discipline just like breaking the shell from an egg.  
+  
+## 版本更新日志 Update Logs  
   
 | 日期                | 内容                                                               |
 | ------------------- | ------------------------------------------------------------------ |
