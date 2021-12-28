@@ -30,3 +30,4 @@ PS: "YADAN" in Chinese is "鸭蛋 (Yā Dàn)", pronounced like /jɑː dæn/, whi
 | 2021 年 9 月 6 日   | 给文档配置了域名 [docs.yadanboard.com](http://docs.yadanboard.com) |
 | 2021 年 10 月 8 日  | 发布好了第一个版本的所有内容                                       |
 | 2021 年 10 月 15 日 | 发布好了《附录：超级快速入门步骤》                                 |
+| 2021 年 12 月 28 日 | 上传了开发板的原理图                                               |
