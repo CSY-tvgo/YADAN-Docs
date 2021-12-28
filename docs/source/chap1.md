@@ -104,6 +104,9 @@ YADAN Board 的硬件布局如图 1.1 所示，硬件接口介绍见表 1.1。
   
 
 ## 相关电路介绍  
+本节将介绍开发板电路上一些常用的部分，完整的原理图可以在这里找到：[Schematic_YADAN_v1_0_1_20211228_B.pdf](https://github.com/CSY-tvgo/YADAN-Docs/blob/main/docs/source/attachments/Schematic_YADAN_v1_0_1_20211228_B.pdf)  
+（如果 GitHub 加载较慢也可以点 [这个链接](https://gitee.com/verimaker/yadan-board/blob/master/Schematic_YADAN_v1_0_1_20211228_B.pdf) 在 Gitee 上下载）  
+
 ### 时钟电路  
 开发板上有一个 24MHz 时钟连接到 FPGA 的 P34 引脚，原理图如图 1.2。  
   
