@@ -8,7 +8,7 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
   
 使用 YADAN Board 进行学习或开发需要使用 Arduino IDE、TangDynasty 等开发工具，通常，这些工具能在 Windows 7 及更高版本的电脑上运行。  
   
-开发板的原理图可点击 [此处](attachments/Schematic_YADAN_v1_0_1_20211228_B.pdf) 访问。  
+开发板的原理图可点击 [此处](attachments/Schematic_YADAN_v1_0_1_20211228_B.pdf) 浏览或者下载。  
   
 ## 开发板主要资源  
 
