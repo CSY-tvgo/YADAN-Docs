@@ -21,7 +21,7 @@ YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指�
    YADAN Board 开发板介绍 <chap1.md>
    已适配的 SoC 的介绍 (YADAN SoC / PULPino SoC)<chap2.md>
    搭建开发环境 <chap3.md>
-   使用 YADAN Board <chap4.md>
+   使用 YADAN <chap4.md>
    几个入门实验 <chap5.md>
 
    附录：超级快速入门步骤 <chap6.md>
