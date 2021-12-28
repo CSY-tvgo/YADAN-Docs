@@ -70,7 +70,7 @@ https://gitee.com/verimake/yadan_arduino/raw/master/package_verimake_core_index.
 **<center>![图3.8 在 Preferences 中添加 YADAN Board 的包的索引地址](imgs/img_03_10.png)  
 图3.8 在 Preferences 中添加 YADAN Board 的包的索引地址</center>**  
 
-然后，打开 `Tools -> Board -> Boards Manager…`，在搜索栏中输入 `YADAN` 进行搜索，会搜到如图 3.9 所示的 `YADAN by EDWINE`，点击 `Install` 即可自动安装，安装完成后即可关闭开发板管理器。  
+然后，打开 `Tools -> Board -> Boards Manager…`，在搜索栏中输入 `YADAN` 进行搜索，会搜到如图 3.9 所示的 `YADAN by EDWINE`，点击 `Install` 即可自动安装，安装完成后即可关闭开发板管理器。（如果 Boards Manager 提示安装出错，可参考 [第 7.2 节](chap7.html#boards-manager-yadan)）  
   
 **<center>![图3.9 在 Boards Manager 中安装 YADAN](imgs/img_03_11.png)  
 图3.9 在 Boards Manager 中安装 YADAN</center>**  
