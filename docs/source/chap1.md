@@ -2,14 +2,15 @@
   
 YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台。  
   
+开发板的原理图可点击该链接浏览或者下载：[Schematic_YADAN_v1_0_1_20211228_B.pdf](https://github.com/CSY-tvgo/YADAN-Docs/blob/main/docs/source/attachments/Schematic_YADAN_v1_0_1_20211228_B.pdf)  
+（如果 GitHub 加载较慢也可以点 [这个链接](https://gitee.com/verimaker/yadan-board/blob/master/Schematic_YADAN_v1_0_1_20211228_B.pdf) 在 Gitee 上下载）  
+  
 当我们需要学习嵌入式入门知识时，我们可以移植一颗 SoC （可选 YADAN Core 内核的 YADAN SoC 或 Zero-riscy 内核的 PULPino SoC）到 FPGA，在其基础上学习嵌入式软件开发。YADAN Board 兼容 Arduino UNO 接口，我们能像使用 Arduino 一样轻松上手。  
   
 当我们需要深入学习数字系统设计时，也能够在 YADAN Board 的 FPGA 上容易地搭建数字系统。从译码器等简单的数字逻辑电路、到 CPU 内核、到接入总线的外设、到 SoC，在实践中一步一步学习数字系统设计和芯片架构。  
   
 使用 YADAN Board 进行学习或开发需要使用 Arduino IDE、TangDynasty 等开发工具，通常，这些工具能在 Windows 7 及更高版本的电脑上运行。  
   
-开发板的原理图可点击该链接浏览或者下载：[Schematic_YADAN_v1_0_1_20211228_B.pdf](https://github.com/CSY-tvgo/YADAN-Docs/blob/main/docs/source/attachments/Schematic_YADAN_v1_0_1_20211228_B.pdf)  
-（如果 GitHub 加载较慢也可以点 [这个链接](https://gitee.com/verimaker/yadan-board/blob/master/Schematic_YADAN_v1_0_1_20211228_B.pdf) 在 Gitee 上下载）  
   
 ## 开发板主要资源  
 
