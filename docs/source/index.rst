@@ -26,6 +26,7 @@ YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指�
 
    附录：超级快速入门步骤 <chap6.md>
    附录：一些可能会遇到的问题（FAQ） <chap7.md>
+   附录：下载相关附件 <chap8.md>
   
 
 YADAN 在 RISC-V 中国峰会 2021 上的介绍
