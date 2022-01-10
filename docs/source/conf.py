@@ -64,3 +64,4 @@ source_suffix = [".rst", ".md"]
 master_doc = 'index'
 html_css_files = ["custom.css"]
 highlight_language = 'cpp'
+html_js_files = ['baidu-tongji.js']
