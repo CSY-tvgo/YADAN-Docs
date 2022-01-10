@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'YADAN'
-copyright = '2021, VeriMake'
+copyright = '2021 - 2022, VeriMake. 页面中可能存在的第三方广告由文档托管商发布，其立场与 VeriMake 无关。'
 author = 'Karbon'
 
 
