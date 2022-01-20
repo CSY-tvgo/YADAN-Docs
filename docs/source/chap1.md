@@ -39,67 +39,67 @@ YADAN Board 的硬件布局如图 1.1 所示，硬件接口介绍见表 1.1。
   
   
 **<center>表 1.1 YADAN Board 的硬件接口介绍**  
-| 硬件功能分组            | 接口名     | 引脚号        |
-| ----------------------- | ---------- | ------------- |
-| CLK                     | CLK_24MHz  | P34           |
-| 用户 SPI Flash          | FLASH_CS   | P71           |
-| 用户 SPI Flash          | FLASH_MISO | P72           |
-| 用户 SPI Flash          | FLASH_WP   | P74           |
-| 用户 SPI Flash          | FLASH_HOLD | P75           |
-| 用户 SPI Flash          | FLASH_CCLK | P76           |
-| 用户 SPI Flash          | FLASH_MOSI | P77           |
-| TF 卡接口               | SD_D0      | P62           |
-| TF 卡接口               | SD_D1      | P61           |
-| TF 卡接口               | SD_D2      | P70           |
-| TF 卡接口               | SD_D3      | P66           |
-| TF 卡接口               | SD_CLK     | P63           |
-| TF 卡接口               | SD_CMD     | P64           |
-| Micro-USB 转串口        | UART_TX    | P52           |
-| Micro-USB 转串口        | UART_RX    | P54           |
-| 微动按键                | K_51       | P51           |
-| 微动按键                | K_50       | P50           |
-| LED                     | LED_23     | P23           |
-| LED                     | DONE_8     | P8            |
-| 兼容 Arduino UNO 的接口 | 0 / RXD    | P2            |
-| 兼容 Arduino UNO 的接口 | 1 / TXD    | P3            |
-| 兼容 Arduino UNO 的接口 | 2          | P4            |
-| 兼容 Arduino UNO 的接口 | 3          | P5            |
-| 兼容 Arduino UNO 的接口 | 4          | P10           |
-| 兼容 Arduino UNO 的接口 | 5          | P11           |
-| 兼容 Arduino UNO 的接口 | 6          | P12           |
-| 兼容 Arduino UNO 的接口 | 7          | P13           |
-| 兼容 Arduino UNO 的接口 | 8          | P14           |
-| 兼容 Arduino UNO 的接口 | 9          | P16           |
-| 兼容 Arduino UNO 的接口 | 10         | P17           |
-| 兼容 Arduino UNO 的接口 | 11         | P18           |
-| 兼容 Arduino UNO 的接口 | 12         | P19           |
-| 兼容 Arduino UNO 的接口 | 13         | P23           |
-| 兼容 Arduino UNO 的接口 | A5         | P87 (ADC_CH6) |
-| 兼容 Arduino UNO 的接口 | A4         | P86 (ADC_CH5) |
-| 兼容 Arduino UNO 的接口 | A3         | P60           |
-| 兼容 Arduino UNO 的接口 | A2         | P59           |
-| 兼容 Arduino UNO 的接口 | A1         | P57           |
-| 兼容 Arduino UNO 的接口 | A0         | P55           |
-| 兼容 Arduino UNO 的接口 | SCL        | P86           |
-| 兼容 Arduino UNO 的接口 | SDA        | P87           |
-| DVP 接口                | d0         | P27           |
-| DVP 接口                | d1         | P28           |
-| DVP 接口                | d2         | P32           |
-| DVP 接口                | d3         | P30           |
-| DVP 接口                | d4         | P29           |
-| DVP 接口                | d5         | P31           |
-| DVP 接口                | d6         | P33           |
-| DVP 接口                | d7         | P37           |
-| DVP 接口                | d8         | P38           |
-| DVP 接口                | d9         | P40           |
-| DVP 接口                | PCLK       | P35           |
-| DVP 接口                | HREF       | P41           |
-| DVP 接口                | VSYNC      | P45           |
-| DVP 接口                | XCLK       | P39           |
-| DVP 接口                | PWDN       | P42           |
-| DVP 接口                | CAMSIOC    | P48           |
-| DVP 接口                | CAMSIOD    | P49           |
-| DVP 接口                | CAMRST     | P47           |
+| 硬件功能分组            | 接口名           | 引脚号        |
+| ----------------------- | ---------------- | ------------- |
+| CLK                     | CLK_24MHz        | P34           |
+| 用户 SPI Flash          | FLASH_CS         | P71           |
+| 用户 SPI Flash          | FLASH_MISO       | P72           |
+| 用户 SPI Flash          | FLASH_WP         | P74           |
+| 用户 SPI Flash          | FLASH_HOLD       | P75           |
+| 用户 SPI Flash          | FLASH_CCLK       | P76           |
+| 用户 SPI Flash          | FLASH_MOSI       | P77           |
+| TF 卡接口               | SD_D0            | P62           |
+| TF 卡接口               | SD_D1            | P61           |
+| TF 卡接口               | SD_D2            | P70           |
+| TF 卡接口               | SD_D3            | P66           |
+| TF 卡接口               | SD_CLK           | P63           |
+| TF 卡接口               | SD_CMD           | P64           |
+| Micro-USB 转串口        | UART_TX          | P52           |
+| Micro-USB 转串口        | UART_RX          | P54           |
+| 微动按键                | K_51             | P51           |
+| 微动按键                | K_50             | P50           |
+| LED                     | LED_23           | P23           |
+| LED                     | DONE_8           | P8            |
+| 兼容 Arduino UNO 的接口 | 0 / RXD          | P2            |
+| 兼容 Arduino UNO 的接口 | 1 / TXD          | P3            |
+| 兼容 Arduino UNO 的接口 | 2                | P4            |
+| 兼容 Arduino UNO 的接口 | 3                | P5            |
+| 兼容 Arduino UNO 的接口 | 4                | P10           |
+| 兼容 Arduino UNO 的接口 | 5                | P11           |
+| 兼容 Arduino UNO 的接口 | 6                | P12           |
+| 兼容 Arduino UNO 的接口 | 7                | P13           |
+| 兼容 Arduino UNO 的接口 | 8                | P14           |
+| 兼容 Arduino UNO 的接口 | 9                | P16           |
+| 兼容 Arduino UNO 的接口 | 10               | P17           |
+| 兼容 Arduino UNO 的接口 | 11               | P18           |
+| 兼容 Arduino UNO 的接口 | 12               | P19           |
+| 兼容 Arduino UNO 的接口 | 13 (LED_BUILTIN) | P23           |
+| 兼容 Arduino UNO 的接口 | A5               | P87 (ADC_CH6) |
+| 兼容 Arduino UNO 的接口 | A4               | P86 (ADC_CH5) |
+| 兼容 Arduino UNO 的接口 | A3               | P60           |
+| 兼容 Arduino UNO 的接口 | A2               | P59           |
+| 兼容 Arduino UNO 的接口 | A1               | P57           |
+| 兼容 Arduino UNO 的接口 | A0               | P55           |
+| 兼容 Arduino UNO 的接口 | SCL              | P86           |
+| 兼容 Arduino UNO 的接口 | SDA              | P87           |
+| DVP 接口                | d0               | P27           |
+| DVP 接口                | d1               | P28           |
+| DVP 接口                | d2               | P32           |
+| DVP 接口                | d3               | P30           |
+| DVP 接口                | d4               | P29           |
+| DVP 接口                | d5               | P31           |
+| DVP 接口                | d6               | P33           |
+| DVP 接口                | d7               | P37           |
+| DVP 接口                | d8               | P38           |
+| DVP 接口                | d9               | P40           |
+| DVP 接口                | PCLK             | P35           |
+| DVP 接口                | HREF             | P41           |
+| DVP 接口                | VSYNC            | P45           |
+| DVP 接口                | XCLK             | P39           |
+| DVP 接口                | PWDN             | P42           |
+| DVP 接口                | CAMSIOC          | P48           |
+| DVP 接口                | CAMSIOD          | P49           |
+| DVP 接口                | CAMRST           | P47           |
 </center>
   
 
@@ -127,9 +127,9 @@ YADAN Board 还提供有 2 个 LED，其中一个在电路板标识为 LED，另
 **<center>![图 1.5 标识为 DONE 的 LED 的硬件连接图](imgs/img_01_05.png)  
 图 1.5 标识为 DONE 的 LED 的硬件连接图</center>**  
   
-从原理图上可以看出，P23 引脚输出高电平时可以使标识为 LED 的 LED点亮，P23 引脚输出低电平时该 LED 熄灭；而标识为 DONE 的 LED 的电路是相反的，P8 引脚输出低电平时该 LED 才会点亮，而 P8 引脚输出高电平时该 LED 熄灭。  
+从原理图上可以看出，P23 引脚输出高电平时可以使标识为 LED 的 LED 点亮，P23 引脚输出低电平时该 LED 熄灭；而标识为 DONE 的 LED 的电路是相反的，P8 引脚输出低电平时该 LED 才会点亮，而 P8 引脚输出高电平时该 LED 熄灭。  
   
-标识为 DONE 的 LED 的另一个作用是指示 FPGA 的下载状态，即，当PC给FPGA下载程序的过程中该 LED 会被点亮，下载完成后 P8 引脚即可作为普通的 GPIO 引脚使用。  
+标识为 DONE 的 LED 的另一个作用是指示 FPGA 的下载状态，即，当 PC 给 FPGA 下载程序的过程中该 LED 会被点亮，下载完成后 P8 引脚即可作为普通的 GPIO 引脚使用。  
   
 ### GPIO 接口和 TF 卡接口  
 YADAN Board 的 GPIO 引脚外形与 Arduino UNO 兼容，表 1.1 中列出了YADAN Board 的 GPIO 引脚与对应的 Arduino UNO 引脚的位置关系。  
