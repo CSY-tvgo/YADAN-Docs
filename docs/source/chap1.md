@@ -39,67 +39,67 @@ YADAN Board 的硬件布局如图 1.1 所示，硬件接口介绍见表 1.1。
   
   
 **<center>表 1.1 YADAN Board 的硬件接口介绍**  
-| 硬件功能分组            | 接口名     | 引脚号       |
-| ----------------------- | ---------- | ------------ |
-| CLK                     | CLK_24MHz  | P34          |
-| 用户 SPI Flash          | FLASH_CS   | P71          |
-| 用户 SPI Flash          | FLASH_MISO | P72          |
-| 用户 SPI Flash          | FLASH_WP   | P74          |
-| 用户 SPI Flash          | FLASH_HOLD | P75          |
-| 用户 SPI Flash          | FLASH_CCLK | P76          |
-| 用户 SPI Flash          | FLASH_MOSI | P77          |
-| TF 卡接口               | SD_D0      | P62          |
-| TF 卡接口               | SD_D1      | P61          |
-| TF 卡接口               | SD_D2      | P70          |
-| TF 卡接口               | SD_D3      | P66          |
-| TF 卡接口               | SD_CLK     | P63          |
-| TF 卡接口               | SD_CMD     | P64          |
-| Micro-USB 转串口        | UART_TX    | P52          |
-| Micro-USB 转串口        | UART_RX    | P54          |
-| 微动按键                | K_51       | P51          |
-| 微动按键                | K_50       | P50          |
-| LED                     | LED_23     | P23          |
-| LED                     | DONE_8     | P8           |
-| 兼容 Arduino UNO 的接口 | 0/RXD      | P2           |
-| 兼容 Arduino UNO 的接口 | 1/TXD      | P3           |
-| 兼容 Arduino UNO 的接口 | 2          | P4           |
-| 兼容 Arduino UNO 的接口 | 3          | P5           |
-| 兼容 Arduino UNO 的接口 | 4          | P10          |
-| 兼容 Arduino UNO 的接口 | 5          | P11          |
-| 兼容 Arduino UNO 的接口 | 6          | P12          |
-| 兼容 Arduino UNO 的接口 | 7          | P13          |
-| 兼容 Arduino UNO 的接口 | 8          | P14          |
-| 兼容 Arduino UNO 的接口 | 9          | P16          |
-| 兼容 Arduino UNO 的接口 | 10         | P17          |
-| 兼容 Arduino UNO 的接口 | 11         | P18          |
-| 兼容 Arduino UNO 的接口 | 12         | P19          |
-| 兼容 Arduino UNO 的接口 | 13         | P23          |
-| 兼容 Arduino UNO 的接口 | A5         | P87(ADC_CH6) |
-| 兼容 Arduino UNO 的接口 | A4         | P86(ADC_CH5) |
-| 兼容 Arduino UNO 的接口 | A3         | P60          |
-| 兼容 Arduino UNO 的接口 | A2         | P59          |
-| 兼容 Arduino UNO 的接口 | A1         | P57          |
-| 兼容 Arduino UNO 的接口 | A0         | P55          |
-| 兼容 Arduino UNO 的接口 | SCL        | P86          |
-| 兼容 Arduino UNO 的接口 | SDA        | P87          |
-| DVP 接口                | d0         | P27          |
-| DVP 接口                | d1         | P28          |
-| DVP 接口                | d2         | P32          |
-| DVP 接口                | d3         | P30          |
-| DVP 接口                | d4         | P29          |
-| DVP 接口                | d5         | P31          |
-| DVP 接口                | d6         | P33          |
-| DVP 接口                | d7         | P37          |
-| DVP 接口                | d8         | P38          |
-| DVP 接口                | d9         | P40          |
-| DVP 接口                | PCLK       | P35          |
-| DVP 接口                | HREF       | P41          |
-| DVP 接口                | VSYNC      | P45          |
-| DVP 接口                | XCLK       | P39          |
-| DVP 接口                | PWDN       | P42          |
-| DVP 接口                | CAMSIOC    | P48          |
-| DVP 接口                | CAMSIOD    | P49          |
-| DVP 接口                | CAMRST     | P47          |
+| 硬件功能分组            | 接口名     | 引脚号        |
+| ----------------------- | ---------- | ------------- |
+| CLK                     | CLK_24MHz  | P34           |
+| 用户 SPI Flash          | FLASH_CS   | P71           |
+| 用户 SPI Flash          | FLASH_MISO | P72           |
+| 用户 SPI Flash          | FLASH_WP   | P74           |
+| 用户 SPI Flash          | FLASH_HOLD | P75           |
+| 用户 SPI Flash          | FLASH_CCLK | P76           |
+| 用户 SPI Flash          | FLASH_MOSI | P77           |
+| TF 卡接口               | SD_D0      | P62           |
+| TF 卡接口               | SD_D1      | P61           |
+| TF 卡接口               | SD_D2      | P70           |
+| TF 卡接口               | SD_D3      | P66           |
+| TF 卡接口               | SD_CLK     | P63           |
+| TF 卡接口               | SD_CMD     | P64           |
+| Micro-USB 转串口        | UART_TX    | P52           |
+| Micro-USB 转串口        | UART_RX    | P54           |
+| 微动按键                | K_51       | P51           |
+| 微动按键                | K_50       | P50           |
+| LED                     | LED_23     | P23           |
+| LED                     | DONE_8     | P8            |
+| 兼容 Arduino UNO 的接口 | 0 / RXD    | P2            |
+| 兼容 Arduino UNO 的接口 | 1 / TXD    | P3            |
+| 兼容 Arduino UNO 的接口 | 2          | P4            |
+| 兼容 Arduino UNO 的接口 | 3          | P5            |
+| 兼容 Arduino UNO 的接口 | 4          | P10           |
+| 兼容 Arduino UNO 的接口 | 5          | P11           |
+| 兼容 Arduino UNO 的接口 | 6          | P12           |
+| 兼容 Arduino UNO 的接口 | 7          | P13           |
+| 兼容 Arduino UNO 的接口 | 8          | P14           |
+| 兼容 Arduino UNO 的接口 | 9          | P16           |
+| 兼容 Arduino UNO 的接口 | 10         | P17           |
+| 兼容 Arduino UNO 的接口 | 11         | P18           |
+| 兼容 Arduino UNO 的接口 | 12         | P19           |
+| 兼容 Arduino UNO 的接口 | 13         | P23           |
+| 兼容 Arduino UNO 的接口 | A5         | P87 (ADC_CH6) |
+| 兼容 Arduino UNO 的接口 | A4         | P86 (ADC_CH5) |
+| 兼容 Arduino UNO 的接口 | A3         | P60           |
+| 兼容 Arduino UNO 的接口 | A2         | P59           |
+| 兼容 Arduino UNO 的接口 | A1         | P57           |
+| 兼容 Arduino UNO 的接口 | A0         | P55           |
+| 兼容 Arduino UNO 的接口 | SCL        | P86           |
+| 兼容 Arduino UNO 的接口 | SDA        | P87           |
+| DVP 接口                | d0         | P27           |
+| DVP 接口                | d1         | P28           |
+| DVP 接口                | d2         | P32           |
+| DVP 接口                | d3         | P30           |
+| DVP 接口                | d4         | P29           |
+| DVP 接口                | d5         | P31           |
+| DVP 接口                | d6         | P33           |
+| DVP 接口                | d7         | P37           |
+| DVP 接口                | d8         | P38           |
+| DVP 接口                | d9         | P40           |
+| DVP 接口                | PCLK       | P35           |
+| DVP 接口                | HREF       | P41           |
+| DVP 接口                | VSYNC      | P45           |
+| DVP 接口                | XCLK       | P39           |
+| DVP 接口                | PWDN       | P42           |
+| DVP 接口                | CAMSIOC    | P48           |
+| DVP 接口                | CAMSIOD    | P49           |
+| DVP 接口                | CAMRST     | P47           |
 </center>
   
 
