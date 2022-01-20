@@ -58,8 +58,8 @@ YADAN Board 的硬件布局如图 1.1 所示，硬件接口介绍见表 1.1。
 | Micro-USB 转串口        | UART_RX    | P54          |
 | 微动按键                | K_51       | P51          |
 | 微动按键                | K_50       | P50          |
-| LED                     | LED        | P23          |
-| LED                     | LED        | P8           |
+| LED                     | LED_23     | P23          |
+| LED                     | DONE_8     | P8           |
 | 兼容 Arduino UNO 的接口 | 0/RXD      | P2           |
 | 兼容 Arduino UNO 的接口 | 1/TXD      | P3           |
 | 兼容 Arduino UNO 的接口 | 2          | P4           |
