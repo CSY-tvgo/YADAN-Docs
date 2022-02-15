@@ -145,8 +145,8 @@ YADAN Board 提供一个 DVP 摄像头接口，可连接 OV2640 等摄像头。�
 **<center>![图 1.7 DVP 接口的硬件连接图](imgs/img_01_07.png)  
 图 1.7 DVP 接口的硬件连接图</center>**
 
-### 用户 FLASH 接口  
-YADAN Board 提供两片 SPI 接口的 FLASH。其中一片用于 FPGA 配置，目前不对用户开放。另一片的型号为 WINBOND 25Q16，PULPino 的 Zero-riscy 核使用了其 0x0000_0000 ~ 0x0000_FFFF 的空间作为内核 Flash 存储器，用于存放最大64KB的程序。0x0001_0000地址存放了当前 Flash 中存放的程序大小，其余空间用户可以自由使用。该内容会在后文介绍 SoC 的部分详细介绍，用户 Flash 接口的原理图如图 1.8。  
+### 用户 Flash 接口  
+YADAN Board 提供两片 SPI 接口的 FLASH。其中第一片用于 FPGA 配置，目前不对用户开放，第二片的型号为 WINBOND 25Q16，可供用户访问。若部署 SoC，SoC 可使用第二片作为 Flash 存储器，该内容会在后文介绍 SoC 的部分详细介绍。用户 Flash 接口的原理图如图 1.8。  
 **<center>![图 1.8 用户 Flash 的硬件连接图](imgs/img_01_08.png)  
 图 1.8 用户 Flash 的硬件连接图</center>**
   
