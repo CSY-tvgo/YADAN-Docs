@@ -5,6 +5,8 @@ Welcome to YADAN's documentation!
 
 .. image:: imgs/img_00_01.jpg
 
+**快速链接：** `📖中文版文档 <http://docs.yadanboard.com/>`_ `🥂官方论坛 <https://verimake.com/t/YADAN>`_ `🛒购买开发板 <https://item.taobao.com/item.htm?id=663934271655>`_  
+
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的开源 CPU Core、开源 SoC、开源开发板，可帮助我们从嵌入式软件一直学习到数字系统和计算机架构。  
 
 YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台，我们既能直接写硬件描述语言 (HDL) 在里边实现特定的数字系统、甚至是 CPU 与 SoC，又能部署 SoC 后将其视为常规 SoC 来写软件开发。利用这些特性和 YADAN 的配套资源，只需一块 YADAN Board，我们就可以学习电子与计算机工程学科中以下三个阶段的内容：  
