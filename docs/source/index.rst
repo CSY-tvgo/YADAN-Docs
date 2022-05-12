@@ -5,7 +5,7 @@ Welcome to YADAN's documentation!
 
 .. image:: imgs/img_00_01.jpg
 
-**快速链接:** :ref:`📖中文版文档 <target_to_toc>` `🥂官方论坛 <https://verimake.com/t/YADAN>`_ `🛒购买开发板 <https://item.taobao.com/item.htm?id=663934271655>`_  
+**快速链接:** :ref:`📖中文版文档 <target-to-toc>` `🥂官方论坛 <https://verimake.com/t/YADAN>`_ `🛒购买开发板 <https://item.taobao.com/item.htm?id=663934271655>`_  
 
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的开源 CPU Core、开源 SoC、开源开发板，可帮助我们从嵌入式软件一直学习到数字系统和计算机架构。  
 
@@ -27,7 +27,7 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
   
 如果您在使用 YADAN Board 的过程中遇到问题、或者想分享你的成果，欢迎在 `VeriMake 论坛的 YADAN 标签下 <https://verimake.com/t/YADAN>`_ 参与讨论。如果发现文档中存在问题，欢迎在 `这个贴子 <https://verimake.com/d/33/>`_ 下留言讨论。
 
-.. _target_to_toc:
+.. _target-to-toc:
 
 当前版本的更新时间为：2022 年 5 月 12 日 UTC+8，版本更新日志可以看 `这里 <https://github.com/CSY-tvgo/YADAN-Docs/#%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97>`_。
 
