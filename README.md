@@ -7,7 +7,7 @@ Other Languages: Coming...
 
 [![](docs/source/imgs/img_00_01.jpg)](http://docs.yadanboard.com/)  
 
-**快速链接:** [📖中文版文档](http://docs.yadanboard.com/) [🥂官方论坛](https://verimake.com/t/YADAN) [🛒购买开发板](https://item.taobao.com/item.htm?id=663934271655)  
+**快速链接:** [📖主文档](http://docs.yadanboard.com/) [🥂官方论坛](https://verimake.com/t/YADAN) [🛒购买开发板](https://item.taobao.com/item.htm?id=663934271655)  
 
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的开源 CPU Core、开源 SoC、开源开发板，可帮助我们从嵌入式软件一直学习到数字系统和计算机架构。  
 
@@ -26,9 +26,9 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
 
 🛒 在淘宝搜索 [VeriMake](https://shop219297002.taobao.com)，或者直接点击 [这里](https://item.taobao.com/item.htm?id=663934271655) 可以购买开发板。  
 
-[docs.yadanboard.com](http://docs.yadanboard.com/) 主文档的网页由 Read the Docs 渲染与托管，文档的源文稿托管在 GitHub 上的 [这个仓库](https://github.com/CSY-tvgo/YADAN-Docs) 里。如果您在使用 YADAN Board 的过程中遇到问题、或者想分享你的成果，欢迎在 [VeriMake 论坛的 YADAN 标签下](https://verimake.com/t/YADAN) 参与讨论。如果发现文档中存在问题，欢迎在 [这个贴子](https://verimake.com/d/33) 下留言讨论。  
+[docs.yadanboard.com](http://docs.yadanboard.com/) 主文档的网页由 Read the Docs 渲染与托管，源文稿托管在 GitHub 上的 [这个仓库](https://github.com/CSY-tvgo/YADAN-Docs) 里。如果您在使用 YADAN Board 的过程中遇到问题、或者想分享你的成果，欢迎在 [VeriMake 论坛的 YADAN 标签下](https://verimake.com/t/YADAN) 参与讨论。如果发现文档中存在问题，欢迎在 [这个贴子](https://verimake.com/d/33) 下留言讨论。  
 
-点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的中文文档。  
+点击 [此处](http://docs.yadanboard.com/) 可以阅读鸭蛋的中文主文档。  
 
 ### English Introduction  
 YADAN Project includes YADAN Core, YADAN SoC, YADAN Board. They are open-sourced RISC-V CPU Core, SoC, development board. YADAN Board is a programmable platform based on Anlogic FPGA, and we can deploy an YADAN SoC integrated with an YADAN Core on it. YADAN is designed for education, it can help a starter learn from embedded programming to digital system and computer architecture using ONE development board.  
