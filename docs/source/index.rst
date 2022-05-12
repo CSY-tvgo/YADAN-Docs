@@ -16,6 +16,7 @@ YADAN Board 是一块核心为 Anlogic FPGA 的可编程硬件设计学习平台
 配套文档 **在未来将** 全部发布在 `YADAN 主文档：docs.yadanboard.com <http://docs.yadanboard.com/>`_，欢迎阅读。  
 
 不过，截至目前（2022 年 5 月），因 YADAN 项目仍在推进中：  
+
 + `主文档 <http://docs.yadanboard.com/>`_ 中暂时只包含 **YADAN Board、SoC、Core 的技术参数**、和 **阶段一的教程**  
 + 如需 **阶段二的教程**，请临时访问 `这个帖子 <https://verimake.com/d/144>`_ 阅读  
 + **阶段三的教程** 仍在编写，暂时只能在 `这里 <https://gitee.com/verimake/yadansoc>`_ 浏览代码  
