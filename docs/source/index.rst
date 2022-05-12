@@ -5,7 +5,7 @@ Welcome to YADAN's documentation!
 
 .. image:: imgs/img_00_01.jpg
 
-**快速链接:** :ref:`📖中文版文档 <target to toc>` `🥂官方论坛 <https://verimake.com/t/YADAN>`_ `🛒购买开发板 <https://item.taobao.com/item.htm?id=663934271655>`_  
+**快速链接:** `📖中文版文档 <target to toc>`_ `🥂官方论坛 <https://verimake.com/t/YADAN>`_ `🛒购买开发板 <https://item.taobao.com/item.htm?id=663934271655>`_  
 
 YADAN 项目包含 YADAN Core、YADAN SoC、YADAN Board，分别是 RISC-V 指令集的开源 CPU Core、开源 SoC、开源开发板，可帮助我们从嵌入式软件一直学习到数字系统和计算机架构。  
 
