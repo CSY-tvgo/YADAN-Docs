@@ -1,7 +1,7 @@
 #
-# NODELOCKED license for TD, Shanghai Anlogic Infotech Co., Ltd.
-# Generated on Sun Feb 20 00:00:05 2022
+# NODELOCKED license for TD, Shanghai Anlogic Info Tech
+# Generated on Sun Jul 24 00:00:39 2022
 #
 
-FEATURE  TD  Anlogic  2023-02-19  26f18df30bbb1c3479537534162dd51ba162f88bd992405c60f48def5e59c02f43d89412cb2bf6a9eefe12502eab8d1ef0e8d73584dd
+FEATURE  TD  Anlogic  2023-07-25  5a9c0f01d169720f41072f1024f6db868ae142827ff70f06ac12de144e2ee3539aac29042b0ccfdf9e32147fb87d39664860e9096409
 HOST_ID = ANY
