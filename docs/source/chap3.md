@@ -4,7 +4,7 @@
 软件工具可在其各自的官网下载，也可以在下边这个百度网盘链接中下载。该链接不仅包含本实验所需的软件工具，还包含了一些示例源码。  
   
 ```
-https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g  提取码：3005
+https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g?pwd=3005  提取码：3005
 ```
   
 ## TangDynasty 软件简介  
