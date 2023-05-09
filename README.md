@@ -4,7 +4,9 @@
 Other Languages: Coming...  
 
 ## 介绍 Introduction  
-
+  
+[[Click here to English Introduction]](#english-introduction)  
+  
 [![](docs/source/imgs/img_00_01.jpg)](http://docs.yadanboard.com/)  
 
 **快速链接:** [📖主文档](http://docs.yadanboard.com/) [🥂官方论坛](https://verimake.com/t/YADAN) [🛒购买开发板](https://item.taobao.com/item.htm?id=663934271655)  
