@@ -35,6 +35,8 @@ YADAN Project includes YADAN Core, YADAN SoC, YADAN Board. They are open-sourced
   
 English version of this documentation would be released later, because we are still testing and improving YADAN and its documentation.  
   
+YADAN Project was firstly introduced on RISC-V World Conference China 2021.  
+  
 PS: "YADAN" in Chinese is "鸭蛋 (Yā Dàn)", pronounced like /jɑː dæn/, which means duck's egg. We named it as "YADAN" because it was born in Nanjing, a Chinese city which has many duck cuisines with great reputation, and we expect each starter can enjoy benefit from YADAN and learn well in EECS-related discipline just like breaking the shell from an egg.  
   
 ## 版本更新日志 Update Logs  
