@@ -15,7 +15,7 @@ TangDynasty® (简称 TD) 软件是安路科技自主开发的 FPGA 集成开发
 ## 安装 TangDynasty 软件
 目前 TD 软件支持 Windows 和 Linux 系统，本节将以 Windows 下的安装方法为例来展示安装步骤。  
   
-TD 软件可在 [安路科技官网的这个页面](http://www.anlogic.com/down1.aspx?TypeId=13) 下载，经测试，本教程中后续的步骤可在 5.0.3 或 4.6.6 版本下正常实现，推荐选择 5.0.3 版本。其他版本也可以自行尝试，但步骤与本教程不一定完全相同。  
+TD 软件可在 <https://verimake.com/d/296> 的 `软件/工具` 列表下载（文件名 TD_rel220906_r5.6.1_59063_64bit.msi）或在 [安路科技官网的这个页面](https://www.anlogic.com/support/tools-downloads) 下载，推荐选择 5.6.x 版本。早期版本可能缺少驱动。  
   
 下载完成安装包后，双击安装包，将会进入安装向导。如图 3.1，根据安装向导的提示进行操作即可。  
   
