@@ -13,11 +13,13 @@ sphinx:
 #formats:
 #   - pdf
 
-# Optionally set the version of Python and requirements required to build your docs
+# Set the OS, Python version and other tools you might need
 build:
    os: ubuntu-22.04
    tools:
-      python:
-         version: "3.7"
-         install:
-         - requirements: docs/source/requirements.txt
+      python: "3.7"
+
+# Optionally set the version of Python and requirements required to build your docs
+python:
+   install:
+      - requirements: docs/source/requirements.txt
