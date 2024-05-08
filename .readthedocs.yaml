@@ -14,7 +14,9 @@ sphinx:
 #   - pdf
 
 # Optionally set the version of Python and requirements required to build your docs
-python:
-   version: "3.7"
-   install:
-   - requirements: docs/source/requirements.txt
+build:
+   os: ubuntu-22.04
+   python:
+      version: "3.7"
+      install:
+      - requirements: docs/source/requirements.txt
