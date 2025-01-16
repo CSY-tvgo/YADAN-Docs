@@ -4,7 +4,7 @@
   + [https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g](https://pan.baidu.com/s/1uzZ-Ic4XPclwRXgk5f-Z_g) （提取码：3005）  
   
 + **Anlogic TangDynasty® 的许可证文件**  
-  （当前版本可用至 `2025-01-12`，过期后请来此处重新下载，此处将持续更新）  
+  （当前版本可用至 `2025-12-31`，过期后请来此处重新下载，此处将持续更新）  
   + [从 GitHub 下载](https://github.com/CSY-tvgo/YADAN-Docs/blob/main/docs/source/attachments/Anlogic.lic)  
   + [从 Gitee 下载](https://gitee.com/verimaker/yadan-board/blob/master/software/license/Anlogic.lic)  
   
